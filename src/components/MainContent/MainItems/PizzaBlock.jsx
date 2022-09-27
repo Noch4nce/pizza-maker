@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import pizzasData from '../../../assets/pizzas.json'
 
 const PizzaBlock = () => {
+	const [sizeIndex, setSizeIndex] = useState(0)
+	const [blockId, setBlockId] = useState(0)
+
+	const [typeIndex, setTypeIndex] = useState(0)
+	const typeNames = ['тонкое', 'традиционное']
+
+	const handleChangeSize = (id, index) => {
+		setSizeIndex(index)
+		setBlockId(id)
+	}
+
+	const handleChangeType = (index) => {
+		setTypeIndex(index)
+	}
+
 	return (
 		<>
 			{pizzasData.map((data) => {
-				const { id, imageUrl, title, price, sizes } = data // передача через пропсы или сразу вытаскивать?
+				const { id, imageUrl, title, price, sizes, types } = data // передача через пропсы или сразу вытаскивать?
 
 				return (
 					<div key={id} className="pizza-block">
@@ -17,12 +32,36 @@ const PizzaBlock = () => {
 						<h4 className="pizza-block__title">{title}</h4>
 						<div className="pizza-block__selector">
 							<ul>
-								<li className="active">тонкое</li>
-								<li>традиционное</li>
+								{types.map((type, index) => (
+									<li
+										onClick={() => handleChangeType(index)}
+										// className={
+										// 	typeNames[type] ===
+										// 	typeNames[typeIndex]
+										// 		? 'active'
+										// 		: ''
+										// }
+									>
+										{typeNames[type]}
+									</li>
+								))}
 							</ul>
 							<ul>
-								{sizes.map((size) => (
-									<li>{size} см.</li>
+								{sizes.map((size, index) => (
+									<li
+										key={index}
+										onClick={() =>
+											handleChangeSize(id, index)
+										}
+										className={
+											sizeIndex === index &&
+											blockId === id
+												? 'active'
+												: ''
+										}
+									>
+										{size} см.
+									</li>
 								))}
 							</ul>
 						</div>
