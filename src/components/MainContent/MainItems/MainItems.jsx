@@ -5,13 +5,6 @@ const MainItems = () => {
 	return (
 		<div className="content__items">
 			<PizzaBlock />
-			<PizzaBlock />
-			<PizzaBlock />
-			<PizzaBlock />
-			<PizzaBlock />
-			<PizzaBlock />
-			<PizzaBlock />
-			<PizzaBlock />
 		</div>
 	)
 }
