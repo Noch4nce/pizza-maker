@@ -1,11 +1,12 @@
 import React from 'react'
+import logoSvg from '../../../assets/images/pizza-logo.svg'
 
 const HeaderLogo = () => {
 	return (
 		<div className="header__logo">
 			<img
 				width="38"
-				src="./img/pizza-logo.svg"
+				src={logoSvg}
 				alt="Pizza logo"
 			/>
 			<div>
