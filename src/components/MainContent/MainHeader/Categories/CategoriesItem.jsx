@@ -10,25 +10,19 @@ const categoriesItems = [
 ]
 
 const CategoriesItem = () => {
-	const [active, setActive] = useState('Все')
+	const [categoryIndex, setCategoryIndex] = useState(0)
 
-	const handleActive = (e) => {
-		setActive(e.target.textContent)
+	const handleChangeIndex = (index) => {
+		setCategoryIndex(index)
 	}
 
 	return (
 		<>
-			{/*<li className="active">Все</li>*/}
-			{/*<li>Мясные</li>*/}
-			{/*<li>Вегетарианская</li>*/}
-			{/*<li>Гриль</li>*/}
-			{/*<li>Острые</li>*/}
-			{/*<li>Закрытые</li>*/}
-
-			{categoriesItems.map((item) => (
+			{categoriesItems.map((item, index) => (
 				<li
-					onClick={(e) => handleActive(e)}
-					className={item === active ? 'active' : ''}
+					key={index}
+					onClick={() => handleChangeIndex(index)}
+					className={categoryIndex === index ? 'active' : ''}
 				>
 					{item}
 				</li>
