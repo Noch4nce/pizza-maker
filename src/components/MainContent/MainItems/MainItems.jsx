@@ -1,10 +1,25 @@
 import React from 'react'
 import PizzaBlock from './PizzaBlock'
+import pizzasData from '../../../assets/pizzas.json'
 
 const MainItems = () => {
 	return (
 		<div className="content__items">
-			<PizzaBlock />
+			{pizzasData.map((data) => {
+				const { id, imageUrl, title, price, sizes, types } = data
+
+				return (
+					<PizzaBlock
+						key={id}
+						id={id}
+						title={title}
+						imageUrl={imageUrl}
+						price={price}
+						sizes={sizes}
+						types={types}
+					/>
+				)
+			})}
 		</div>
 	)
 }
