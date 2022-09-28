@@ -9,7 +9,7 @@ const MainItems = () => {
 				const { id, imageUrl, title, price, sizes, types } = data
 
 				return (
-					<PizzaBlock
+					<PizzaBlock // short form {..data} ?
 						key={id}
 						id={id}
 						title={title}
