@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import PizzaBlock from './PizzaBlock'
+import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 
 const MainItems = () => {
 	const [pizzasData, setPizzasData] = useState([])
+	const [isLoading, setIsLoading] = useState(false)
+
+	const arr = [...Array(10).keys()]
 
 	useEffect(() => {
+		setIsLoading(true)
 		fetch('https://63356b088aa85b7c5d1ad1db.mockapi.io/items')
 			.then((response) => response.json())
 			.then((data) => setPizzasData(data))
+			.finally(() => setIsLoading(false))
 	}, [])
 
 	console.log(pizzasData, 'pizzasData')
 
 	return (
 		<div className="content__items">
+			{isLoading && arr.map(() => <PizzaSkeleton />)}
 			{pizzasData.map((data) => {
 				const { id, imageUrl, title, price, sizes, types } = data
 
