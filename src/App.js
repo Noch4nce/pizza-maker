@@ -1,15 +1,15 @@
 import './scss/app.scss'
-import Header from './components/Header/Header'
 import MainContent from './components/MainContent/MainContent'
 import Cart from './components/Cart/Cart'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const App = () => (
-	// <div className="wrapper">
-	// 	<Header />
-	// 	<MainContent />
-	// </div>
-
-	<Cart />
+	<BrowserRouter>
+		<Routes>
+			<Route path="/" element={<MainContent />} />
+			<Route path="cart" element={<Cart />} />
+		</Routes>
+	</BrowserRouter>
 )
 
 export default App
