@@ -10,7 +10,7 @@ const MainItems = () => {
 			.then((data) => setPizzasData(data))
 	}, [])
 
-	console.log(pizzasData, "pizzasData")
+	console.log(pizzasData, 'pizzasData')
 
 	return (
 		<div className="content__items">
