@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PizzaBlock from './PizzaBlock'
-import pizzasData from '../../../assets/pizzas.json'
 
 const MainItems = () => {
+	const [pizzasData, setPizzasData] = useState([])
+
+	useEffect(() => {
+		fetch('https://63356b088aa85b7c5d1ad1db.mockapi.io/items')
+			.then((response) => response.json())
+			.then((data) => setPizzasData(data))
+	}, [])
+
+	console.log(pizzasData, "pizzasData")
+
 	return (
 		<div className="content__items">
 			{pizzasData.map((data) => {
