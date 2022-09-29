@@ -5,6 +5,7 @@ const sortItems = ['популярности', 'цене', 'алфавиту']
 const Sort = () => {
 	const [sortActiveIndex, setSortActiveIndex] = useState(0)
 	const [isOpen, setIsOpen] = useState(false)
+	const sortName = sortItems[sortActiveIndex]
 
 	const handleSortByItem = (index) => {
 		setSortActiveIndex(index)
@@ -27,13 +28,14 @@ const Sort = () => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={() => setIsOpen(!isOpen)}>{sortItems[sortActiveIndex]}</span>
+				<span onClick={() => setIsOpen(!isOpen)}>{sortName}</span>
 			</div>
 			{isOpen && (
 				<div className="sort__popup">
 					<ul>
 						{sortItems.map((item, index) => (
 							<li
+								key={index}
 								onClick={() => handleSortByItem(index)}
 								className={sortActiveIndex === index ? 'active' : ''}
 							>

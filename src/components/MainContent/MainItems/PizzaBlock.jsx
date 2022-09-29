@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import pizzasData from '../../../assets/pizzas.json'
+// import pizzasData from '../../../assets/pizzas.json'
 
 const PizzaBlock = ({ imageUrl, title, price, sizes, types }) => {
 	const [activeSizeIndex, setActiveSizeIndex] = useState(0)
