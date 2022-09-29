@@ -11,9 +11,9 @@ const PizzaSkeleton = () => (
 			backgroundColor="#f3f3f3"
 			foregroundColor="#ecebeb"
 		>
-			<circle cx="125" cy="125" r="125" />
+			<circle cx="140" cy="132" r="120" />
 			<rect x="0" y="279" rx="0" ry="0" width="280" height="30" />
-			<rect x="0" y="336" rx="10" ry="10" width="280" height="90" />
+			<rect x="0" y="336" rx="10" ry="10" width="280" height="85" />
 			<rect x="115" y="447" rx="20" ry="20" width="160" height="50" />
 			<rect x="0" y="457" rx="5" ry="5" width="90" height="30" />
 		</ContentLoader>{' '}

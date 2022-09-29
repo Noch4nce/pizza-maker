@@ -4,9 +4,8 @@ import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 
 const MainItems = () => {
 	const [pizzasData, setPizzasData] = useState([])
-	const [isLoading, setIsLoading] = useState(false)
-
-	const arr = [...Array(10).keys()]
+	const [isLoading, setIsLoading] = useState(true)
+	const fakeArray = [...Array(10).keys()]
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -20,22 +19,24 @@ const MainItems = () => {
 
 	return (
 		<div className="content__items">
-			{isLoading && arr.map(() => <PizzaSkeleton />)}
-			{pizzasData.map((data) => {
-				const { id, imageUrl, title, price, sizes, types } = data
+			{isLoading
+				? fakeArray.map(() => <PizzaSkeleton />)
+				: pizzasData.map((data) => {
+						const { id, imageUrl, title, price, sizes, types } =
+							data
 
-				return (
-					<PizzaBlock // short form {..data} ?
-						key={id}
-						id={id}
-						title={title}
-						imageUrl={imageUrl}
-						price={price}
-						sizes={sizes}
-						types={types}
-					/>
-				)
-			})}
+						return (
+							<PizzaBlock // short form {..data} ?
+								key={id}
+								id={id}
+								title={title}
+								imageUrl={imageUrl}
+								price={price}
+								sizes={sizes}
+								types={types}
+							/>
+						)
+				  })}
 		</div>
 	)
 }
