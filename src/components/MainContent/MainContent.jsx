@@ -2,6 +2,7 @@ import React from 'react'
 
 import Header from '../Header/Header'
 import MainPage from '../../pages/MainPage/MainPage'
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage'
 
 const MainContent = () => {
 	return (
@@ -9,7 +10,8 @@ const MainContent = () => {
 			<Header />
 			<div className="content">
 				<div className="container">
-					<MainPage />
+					{/*<MainPage />*/}
+					<NotFoundPage />
 				</div>
 			</div>
 		</div>
