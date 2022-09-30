@@ -7,7 +7,7 @@ const PizzaBlock = ({ imageUrl, title, price, sizes, types }) => {
 	const typeNames = ['тонкое', 'традиционное']
 
 	return (
-		<>
+		<div className="pizza-block__wrapper">
 			<div className="pizza-block">
 				<img
 					className="pizza-block__image"
@@ -135,7 +135,7 @@ const PizzaBlock = ({ imageUrl, title, price, sizes, types }) => {
 			{/*		</div>*/}
 			{/*	)*/}
 			{/*})}*/}
-		</>
+		</div>
 	)
 }
 
