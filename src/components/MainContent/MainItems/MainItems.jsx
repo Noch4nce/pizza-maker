@@ -20,7 +20,7 @@ const MainItems = () => {
 	return (
 		<div className="content__items">
 			{isLoading
-				? fakeArray.map(() => <PizzaSkeleton />)
+				? fakeArray.map((_, index) => <PizzaSkeleton key={index} />)
 				: pizzasData.map((data) => {
 						const { id, imageUrl, title, price, sizes, types } =
 							data
