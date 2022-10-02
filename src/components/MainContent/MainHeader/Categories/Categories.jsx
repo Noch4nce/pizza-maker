@@ -1,11 +1,14 @@
 import React from 'react'
 import CategoriesItem from './CategoriesItem'
 
-const Categories = () => {
+const Categories = ({ categoryId, onClickChangeId }) => {
 	return (
 		<div className="categories">
 			<ul>
-				<CategoriesItem />
+				<CategoriesItem
+					categoryId={categoryId}
+					onClickChangeId={onClickChangeId}
+				/>
 			</ul>
 		</div>
 	)

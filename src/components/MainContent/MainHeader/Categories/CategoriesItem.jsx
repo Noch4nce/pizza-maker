@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const categoriesItems = [
 	'Все',
@@ -9,20 +9,14 @@ const categoriesItems = [
 	'Закрытые'
 ]
 
-const CategoriesItem = () => {
-	const [categoryIndex, setCategoryIndex] = useState(0)
-
-	const handleChangeIndex = (index) => {
-		setCategoryIndex(index)
-	}
-
+const CategoriesItem = ({ categoryId, onClickChangeId }) => {
 	return (
 		<>
 			{categoriesItems.map((item, index) => (
 				<li
 					key={index}
-					onClick={() => handleChangeIndex(index)}
-					className={categoryIndex === index ? 'active' : ''}
+					onClick={() => onClickChangeId(index)}
+					className={categoryId === index ? 'active' : ''}
 				>
 					{item}
 				</li>

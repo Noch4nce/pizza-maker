@@ -2,19 +2,22 @@ import React, { useEffect, useState } from 'react'
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 
-const MainItems = () => {
+const MainItems = ({ categoryId }) => {
 	const [pizzasData, setPizzasData] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const fakeArray = [...Array(10).keys()]
 
 	useEffect(() => {
 		setIsLoading(true)
-		fetch('https://63356b088aa85b7c5d1ad1db.mockapi.io/items')
+		fetch(
+			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items' +
+				(categoryId ? `?search&category=${categoryId}` : '')
+		)
 			.then((response) => response.json())
 			.then((data) => setPizzasData(data))
 			.finally(() => setIsLoading(false))
 		window.scrollTo(0, 0)
-	}, [])
+	}, [categoryId])
 
 	console.log(pizzasData, 'pizzasData')
 
