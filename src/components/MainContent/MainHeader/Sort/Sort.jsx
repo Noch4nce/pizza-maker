@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 
 const sortItems = ['популярности', 'цене', 'алфавиту']
 
-const Sort = () => {
-	const [sortActiveIndex, setSortActiveIndex] = useState(0)
+const Sort = ({ sortActiveIndex, onClickChangeSortIndex }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const sortName = sortItems[sortActiveIndex]
 
 	const handleSortByItem = (index) => {
-		setSortActiveIndex(index)
+		onClickChangeSortIndex(index)
 		setIsOpen(false)
 	}
 
@@ -37,7 +36,9 @@ const Sort = () => {
 							<li
 								key={index}
 								onClick={() => handleSortByItem(index)}
-								className={sortActiveIndex === index ? 'active' : ''}
+								className={
+									sortActiveIndex === index ? 'active' : ''
+								}
 							>
 								{item}
 							</li>
