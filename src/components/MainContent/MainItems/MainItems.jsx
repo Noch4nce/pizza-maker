@@ -13,6 +13,7 @@ const MainItems = () => {
 			.then((response) => response.json())
 			.then((data) => setPizzasData(data))
 			.finally(() => setIsLoading(false))
+		window.scrollTo(0, 0)
 	}, [])
 
 	console.log(pizzasData, 'pizzasData')
