@@ -2,26 +2,28 @@ import React, { useEffect, useState } from 'react'
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 
-const sortItems = ['rating', 'price', 'title']
-
-const MainItems = ({ categoryId, sortActiveIndex }) => {
+const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const [pizzasData, setPizzasData] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const fakeArray = [...Array(10).keys()]
 
 	useEffect(() => {
 		setIsLoading(true)
+		const sortByAll = `sortBy=${sortSelectedTab.type}`
+		const order = `&order=${sortSelectedTab.order}`
+		const sortByCategories = `category=${categoryId}&${sortByAll}${order}`
+
 		fetch(
-			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items' +
+			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
 				(categoryId
-					? `?category=${categoryId}&sortBy=${sortItems[sortActiveIndex]}`
-					: `?sortBy=${sortItems[sortActiveIndex]}`)
+					? sortByCategories
+					: sortByAll + order)
 		)
 			.then((response) => response.json())
 			.then((data) => setPizzasData(data))
 			.finally(() => setIsLoading(false))
 		window.scrollTo(0, 0)
-	}, [categoryId, sortActiveIndex])
+	}, [categoryId, sortSelectedTab])
 
 	console.log(pizzasData, 'pizzasData')
 

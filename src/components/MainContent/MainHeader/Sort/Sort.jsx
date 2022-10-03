@@ -1,13 +1,55 @@
 import React, { useState } from 'react'
 
-const sortItems = ['популярности', 'цене', 'алфавиту']
+const sortItems = [
+	{
+		id: 0,
+		name: 'популярности',
+		type: 'rating',
+		orderName: 'взр',
+		order: 'asc'
+	},
+	{
+		id: 1,
+		name: 'популярности',
+		type: 'rating',
+		orderName: 'убв',
+		order: 'desc'
+	},
+	{
+		id: 2,
+		name: 'цене',
+		type: 'price',
+		orderName: 'взр',
+		order: 'asc'
+	},
+	{
+		id: 3,
+		name: 'цене',
+		type: 'price',
+		orderName: 'убв',
+		order: 'desc'
+	},
+	{
+		id: 4,
+		name: 'алфавиту',
+		type: 'title',
+		orderName: 'взр',
+		order: 'asc'
+	},
+	{
+		id: 5,
+		name: 'алфавиту',
+		type: 'title',
+		orderName: 'убв',
+		order: 'desc'
+	}
+]
 
-const Sort = ({ sortActiveIndex, onClickChangeSortIndex }) => {
+const Sort = ({ sortSelectedTab, onClickSortTab }) => {
 	const [isOpen, setIsOpen] = useState(false)
-	const sortName = sortItems[sortActiveIndex]
 
-	const handleSortByItem = (index) => {
-		onClickChangeSortIndex(index)
+	const handleSortByItem = (item) => {
+		onClickSortTab(item)
 		setIsOpen(false)
 	}
 
@@ -27,20 +69,24 @@ const Sort = ({ sortActiveIndex, onClickChangeSortIndex }) => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={() => setIsOpen(!isOpen)}>{sortName}</span>
+				<span onClick={() => setIsOpen(!isOpen)}>
+					{sortSelectedTab.name} {`(${sortSelectedTab.orderName})`}
+				</span>
 			</div>
 			{isOpen && (
 				<div className="sort__popup">
 					<ul>
-						{sortItems.map((item, index) => (
+						{sortItems.map((item) => (
 							<li
-								key={index}
-								onClick={() => handleSortByItem(index)}
+								key={item.id}
+								onClick={() => handleSortByItem(item)}
 								className={
-									sortActiveIndex === index ? 'active' : ''
+									item.id === sortSelectedTab.id
+										? 'active'
+										: ''
 								}
 							>
-								{item}
+								{item.name} {`(${item.orderName})`}
 							</li>
 						))}
 					</ul>

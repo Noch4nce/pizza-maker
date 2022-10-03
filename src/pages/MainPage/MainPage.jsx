@@ -5,7 +5,13 @@ import MainItems from '../../components/MainContent/MainItems/MainItems'
 
 const MainPage = () => {
 	const [categoryId, setCategoryId] = useState(0)
-	const [sortActiveIndex, setSortActiveIndex] = useState(0)
+	const [sortSelectedTab, setSortSelectedTab] = useState({
+		id: 1,
+		name: 'популярности',
+		type: 'rating',
+		orderName: 'убв',
+		order: 'desc'
+	})
 
 	return (
 		<>
@@ -14,10 +20,18 @@ const MainPage = () => {
 					categoryId={categoryId}
 					onClickChangeId={(index) => setCategoryId(index)}
 				/>
-				<Sort sortActiveIndex={sortActiveIndex} onClickChangeSortIndex={(index) => setSortActiveIndex(index)} />
+				<Sort
+					sortSelectedTab={sortSelectedTab}
+					onClickSortTab={(index) =>
+						setSortSelectedTab(index)
+					}
+				/>
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
-			<MainItems categoryId={categoryId} sortActiveIndex={sortActiveIndex} />
+			<MainItems
+				categoryId={categoryId}
+				sortSelectedTab={sortSelectedTab}
+			/>
 		</>
 	)
 }
