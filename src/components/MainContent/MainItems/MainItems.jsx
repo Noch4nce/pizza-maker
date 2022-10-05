@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 
-const MainItems = ({ categoryId, sortSelectedTab }) => {
+const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 	const [pizzasData, setPizzasData] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const fakeArray = [...Array(10).keys()]
@@ -15,9 +15,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 
 		fetch(
 			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
-				(categoryId
-					? sortByCategories
-					: sortByAll + order)
+				(categoryId ? sortByCategories : sortByAll + order)
 		)
 			.then((response) => response.json())
 			.then((data) => setPizzasData(data))
@@ -31,22 +29,28 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		<div className="content__items">
 			{isLoading
 				? fakeArray.map((_, index) => <PizzaSkeleton key={index} />)
-				: pizzasData.map((data) => {
-						const { id, imageUrl, title, price, sizes, types } =
-							data
-
-						return (
-							<PizzaBlock // short form {..data} ?
-								key={id}
-								id={id}
-								title={title}
-								imageUrl={imageUrl}
-								price={price}
-								sizes={sizes}
-								types={types}
-							/>
+				: pizzasData
+						.filter((data) =>
+							data.title
+								.toLowerCase()
+								.includes(searchValue.toLowerCase())
 						)
-				  })}
+						.map((data) => {
+							const { id, imageUrl, title, price, sizes, types } =
+								data
+
+							return (
+								<PizzaBlock // short form {..data} ?
+									key={id}
+									id={id}
+									title={title}
+									imageUrl={imageUrl}
+									price={price}
+									sizes={sizes}
+									types={types}
+								/>
+							)
+						})}
 		</div>
 	)
 }

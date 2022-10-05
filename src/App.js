@@ -9,7 +9,7 @@ import './scss/app.scss'
 
 const App = () => {
 	const [searchValue, setSearchValue] = useState('')
-	console.log(searchValue, "searchValue")
+
 	return (
 		<div className="wrapper">
 			<Header
@@ -21,7 +21,10 @@ const App = () => {
 					<Routes>
 						<Route path="*" element={<NotFoundPage />} />
 
-						<Route path="/" element={<MainPage />} />
+						<Route
+							path="/"
+							element={<MainPage searchValue={searchValue} />}
+						/>
 						<Route path="cart" element={<CartPage />} />
 					</Routes>
 				</div>
