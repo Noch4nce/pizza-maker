@@ -21,10 +21,7 @@ const App = () => {
 						<Routes>
 							<Route path="*" element={<NotFoundPage />} />
 
-							<Route
-								path="/"
-								element={<MainPage searchValue={searchValue} />}
-							/>
+							<Route path="/" element={<MainPage />} />
 							<Route path="cart" element={<CartPage />} />
 						</Routes>
 					</div>

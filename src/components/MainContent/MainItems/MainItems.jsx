@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 import Pagination from '../../Pagination/Pagination'
+import { SearchContext } from '../../../App'
 
-const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
+const MainItems = ({ categoryId, sortSelectedTab }) => {
+	const { searchValue } = useContext(SearchContext)
 	const [pizzasData, setPizzasData] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [pageNumber, setPageNumber] = useState(0)
