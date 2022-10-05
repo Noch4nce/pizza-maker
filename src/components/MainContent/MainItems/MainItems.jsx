@@ -11,17 +11,20 @@ const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 		setIsLoading(true)
 		const sortByAll = `sortBy=${sortSelectedTab.type}`
 		const order = `&order=${sortSelectedTab.order}`
-		const sortByCategories = `category=${categoryId}&${sortByAll}${order}`
+		const searchByTitle = `&title=${searchValue}`
+		const sortByCategories = `category=${categoryId}&${sortByAll}${order}${searchByTitle}`
 
 		fetch(
 			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
-				(categoryId ? sortByCategories : sortByAll + order)
+				(categoryId
+					? sortByCategories
+					: sortByAll + order + searchByTitle)
 		)
 			.then((response) => response.json())
 			.then((data) => setPizzasData(data))
 			.finally(() => setIsLoading(false))
 		window.scrollTo(0, 0)
-	}, [categoryId, sortSelectedTab])
+	}, [categoryId, sortSelectedTab, searchValue])
 
 	console.log(pizzasData, 'pizzasData')
 
@@ -30,11 +33,11 @@ const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 			{isLoading
 				? fakeArray.map((_, index) => <PizzaSkeleton key={index} />)
 				: pizzasData
-						.filter((data) =>
-							data.title
-								.toLowerCase()
-								.includes(searchValue.toLowerCase())
-						)
+						// .filter((data) =>
+						// 	data.title
+						// 		.toLowerCase()
+						// 		.includes(searchValue.toLowerCase())
+						// )
 						.map((data) => {
 							const { id, imageUrl, title, price, sizes, types } =
 								data
