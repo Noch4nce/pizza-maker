@@ -7,7 +7,6 @@ const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 	const [pizzasData, setPizzasData] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [pageNumber, setPageNumber] = useState(0)
-	const [pageCount, setPageCount] = useState(0);
 	const fakeArray = [...Array(10).keys()]
 
 	useEffect(() => {
@@ -15,9 +14,9 @@ const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 		const sortByAll = `sortBy=${sortSelectedTab.type}`
 		const order = `&order=${sortSelectedTab.order}`
 		const searchByTitle = searchValue ? `&title=${searchValue}` : ''
-		const page = `&page=${pageNumber + 1}&limit=8`
+		const page = `&page=${pageNumber + 1}&limit=5`
 		const sortByCategories = `category=${categoryId}&${sortByAll}${order}${page}${searchByTitle}`
-		console.log(page, 'page')
+
 		fetch(
 			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
 				(categoryId
@@ -29,11 +28,6 @@ const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 			.finally(() => setIsLoading(false))
 		window.scrollTo(0, 0)
 	}, [categoryId, sortSelectedTab, searchValue, pageNumber])
-
-	useEffect(() => {
-		setPageCount(Math.ceil(pizzasData.length / 8));
-	}, [pizzasData])
-	console.log(pageCount, "pageCountpageCount")
 
 	console.log(pizzasData, 'pizzasData')
 
@@ -72,7 +66,7 @@ const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 							})}
 			</div>
 
-			<Pagination pageCount={pageCount} setPageNumber={setPageNumber} />
+			<Pagination setPageNumber={setPageNumber} />
 		</>
 	)
 }
