@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
+import Pagination from '../../Pagination/Pagination'
 
 const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 	const [pizzasData, setPizzasData] = useState([])
@@ -29,32 +30,42 @@ const MainItems = ({ categoryId, sortSelectedTab, searchValue }) => {
 	console.log(pizzasData, 'pizzasData')
 
 	return (
-		<div className="content__items">
-			{isLoading
-				? fakeArray.map((_, index) => <PizzaSkeleton key={index} />)
-				: pizzasData
-						// .filter((data) =>
-						// 	data.title
-						// 		.toLowerCase()
-						// 		.includes(searchValue.toLowerCase())
-						// )
-						.map((data) => {
-							const { id, imageUrl, title, price, sizes, types } =
-								data
+		<>
+			<div className="content__items">
+				{isLoading
+					? fakeArray.map((_, index) => <PizzaSkeleton key={index} />)
+					: pizzasData
+							// .filter((data) =>
+							// 	data.title
+							// 		.toLowerCase()
+							// 		.includes(searchValue.toLowerCase())
+							// )
+							.map((data) => {
+								const {
+									id,
+									imageUrl,
+									title,
+									price,
+									sizes,
+									types
+								} = data
 
-							return (
-								<PizzaBlock // short form {..data} ?
-									key={id}
-									id={id}
-									title={title}
-									imageUrl={imageUrl}
-									price={price}
-									sizes={sizes}
-									types={types}
-								/>
-							)
-						})}
-		</div>
+								return (
+									<PizzaBlock // short form {..data} ?
+										key={id}
+										id={id}
+										title={title}
+										imageUrl={imageUrl}
+										price={price}
+										sizes={sizes}
+										types={types}
+									/>
+								)
+							})}
+			</div>
+
+			<Pagination />
+		</>
 	)
 }
 
