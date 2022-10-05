@@ -3,12 +3,12 @@ import HeaderLogo from './HeaderLogo/HeaderLogo'
 import HeaderCart from './HeaderCart/HeaderCart'
 import Search from './Search/Search'
 
-const Header = ({ searchValue, onChangeSearchValue }) => {
+const Header = () => {
 	return (
 		<div className="header">
 			<div className="container">
 				<HeaderLogo />
-				<Search searchValue={searchValue} onChangeSearchValue={onChangeSearchValue} />
+				<Search />
 				<HeaderCart />
 			</div>
 		</div>
