@@ -1,10 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
+
+import { SearchContext } from '../../../App'
 import clearSvg from '../../../assets/images/clear.svg'
 import styles from './styles.module.scss'
-import { SearchContext } from '../../../App'
 
 const Search = () => {
 	const { searchValue, setSearchValue } = useContext(SearchContext)
+	const focusInput = useRef(null)
+
+	useEffect(() => {
+		if (focusInput.current) {
+			focusInput.current.focus()
+		}
+	}, [searchValue])
 
 	return (
 		<div className={styles.searchWrapper}>
@@ -14,6 +22,7 @@ const Search = () => {
 				value={searchValue}
 				type="text"
 				placeholder="Поиск пиццы..."
+				ref={focusInput}
 			/>
 			{searchValue && (
 				<img
