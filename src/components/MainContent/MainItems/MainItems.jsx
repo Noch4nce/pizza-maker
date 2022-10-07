@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 import Pagination from '../../Pagination/Pagination'
 import { SearchContext } from '../../../App'
+import { setPageNumber } from '../../../redux/reducers/paginationSlice'
 
 const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const { searchValue } = useContext(SearchContext)
 	const [pizzasData, setPizzasData] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
-	const [pageNumber, setPageNumber] = useState(0)
+	const pageNumber = useSelector(
+		(state) => state.paginationReducer.pageNumber
+	)
+	const dispatch = useDispatch()
 	const fakeArray = [...Array(10).keys()]
 
 	useEffect(() => {
@@ -71,7 +76,11 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 							})}
 			</div>
 
-			<Pagination setPageNumber={setPageNumber} />
+			<Pagination
+				onChangePageNumber={(pageNumber) =>
+					dispatch(setPageNumber(pageNumber))
+				}
+			/>
 		</>
 	)
 }
