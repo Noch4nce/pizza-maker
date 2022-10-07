@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 
 import { SearchContext } from '../../../App'
 import clearSvg from '../../../assets/images/clear.svg'
@@ -8,11 +8,10 @@ const Search = () => {
 	const { searchValue, setSearchValue } = useContext(SearchContext)
 	const focusInput = useRef(null)
 
-	useEffect(() => {
-		if (focusInput.current) {
-			focusInput.current.focus()
-		}
-	}, [searchValue])
+	const handleClearInput = () => {
+		setSearchValue('')
+		focusInput.current.focus()
+	}
 
 	return (
 		<div className={styles.searchWrapper}>
@@ -26,7 +25,7 @@ const Search = () => {
 			/>
 			{searchValue && (
 				<img
-					onClick={() => setSearchValue('')}
+					onClick={() => handleClearInput()}
 					className={styles.searchClear}
 					src={clearSvg}
 					alt="clear"
