@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
+import axios from 'axios'
+
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 import Pagination from '../../Pagination/Pagination'
@@ -19,15 +21,16 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		const page = `&page=${pageNumber + 1}&limit=5`
 		const sortByCategories = `category=${categoryId}&${sortByAll}${order}${page}${searchByTitle}`
 
-		fetch(
-			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
-				(categoryId
-					? sortByCategories
-					: sortByAll + order + page + searchByTitle)
-		)
-			.then((response) => response.json())
-			.then((data) => setPizzasData(data))
+		axios
+			.get(
+				'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
+					(categoryId
+						? sortByCategories
+						: sortByAll + order + page + searchByTitle)
+			)
+			.then((res) => setPizzasData(res.data))
 			.finally(() => setIsLoading(false))
+
 		window.scrollTo(0, 0)
 	}, [categoryId, sortSelectedTab, searchValue, pageNumber])
 
