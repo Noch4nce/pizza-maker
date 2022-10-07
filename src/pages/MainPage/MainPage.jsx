@@ -1,20 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCategoryId } from '../../redux/reducers/filterSlice'
 
+import { setCategoryId } from '../../redux/reducers/filterSlice'
+import { setSortSelectedTab } from '../../redux/reducers/sortSlice'
 import Categories from '../../components/MainContent/MainHeader/Categories/Categories'
 import Sort from '../../components/MainContent/MainHeader/Sort/Sort'
 import MainItems from '../../components/MainContent/MainItems/MainItems'
 
 const MainPage = () => {
-	const [sortSelectedTab, setSortSelectedTab] = useState({
-		id: 1,
-		name: 'популярности',
-		type: 'rating',
-		orderName: 'убв',
-		order: 'desc'
-	})
-	const { categoryId } = useSelector((state) => state.filterReducer)
+	const { categoryId, sortSelectedTab } = useSelector((state) => ({
+		categoryId: state.filterReducer.categoryId,
+		sortSelectedTab: state.sortReducer.sortSelectedTab
+	}))
+
 	const dispatch = useDispatch()
 
 	return (
@@ -26,7 +24,9 @@ const MainPage = () => {
 				/>
 				<Sort
 					sortSelectedTab={sortSelectedTab}
-					onClickSortTab={(index) => setSortSelectedTab(index)}
+					onClickSortTab={(item) =>
+						dispatch(setSortSelectedTab(item))
+					}
 				/>
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
