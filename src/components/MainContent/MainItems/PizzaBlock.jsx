@@ -65,7 +65,7 @@ const PizzaBlock = ({ imageUrl, title, price, sizes, types }) => {
 			</div>
 
 			{/*{pizzasData.map((data) => {*/}
-			{/*	const { imageUrl, title, price, sizes, types } = data // передача через пропсы или сразу вытаскивать?(свои входные данные)*/}
+			{/*	const { imageUrl, title, price, sizes, types } = data //que: передача через пропсы или сразу вытаскивать?(свои входные данные)*/}
 			{/*	console.log(title, "title")*/}
 			{/*	return (*/}
 			{/*		<div className="pizza-block">*/}

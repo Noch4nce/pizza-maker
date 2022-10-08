@@ -21,7 +21,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		(state) => state.paginationReducer.pageNumber
 	)
 	const isSearch = useRef(false)
-	const isMounted = useRef(false) // why ref?
+	const isMounted = useRef(false) // que: why ref?
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const fakeArray = [...Array(10).keys()]
@@ -65,7 +65,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 	}, [])
 
 	useEffect(() => {
-		// render-rerender, taski - excess fetch??
+		// que: render-rerender, taski - excess fetch??
 		// console.log(isSearch, "isSearch3333333333333333333")
 		// console.log(categoryId, "categoryId!!!!!!!!!!!!")
 		if (!isSearch.current) {
@@ -115,7 +115,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 								} = data
 
 								return (
-									<PizzaBlock // short form {..data} ?
+									<PizzaBlock //que: short form {..data} ?
 										key={id}
 										id={id}
 										title={title}

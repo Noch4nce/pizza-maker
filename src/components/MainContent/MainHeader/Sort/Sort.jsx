@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export const sortItems = [
 	{
@@ -47,14 +47,40 @@ export const sortItems = [
 
 const Sort = ({ sortSelectedTab, onClickSortTab }) => {
 	const [isOpen, setIsOpen] = useState(false)
+	const sortRef = useRef(null)
 
 	const handleSortByItem = (item) => {
 		onClickSortTab(item)
 		setIsOpen(false)
 	}
 
+	const handleCloseOutsidePopup = (event) => {
+		if (!event.path.includes(sortRef.current)) {
+			setIsOpen(false)
+			console.log(sortRef, 'EVENT')
+		}
+	}
+
+	useEffect(() => {
+		document.body.addEventListener('click', handleCloseOutsidePopup)
+
+		return () => {
+			document.body.removeEventListener('click', handleCloseOutsidePopup)
+		}
+		// que: поч не ремувит
+		// document.body.addEventListener('click', (event) =>
+		// 	handleCloseOutsidePopup(event)
+		// )
+		//
+		// return () => {
+		// 	document.body.removeEventListener('click', (event) =>
+		// 		handleCloseOutsidePopup(event)
+		// 	)
+		// }
+	}, [])
+
 	return (
-		<div className="sort">
+		<div ref={sortRef} className="sort">
 			<div className="sort__label">
 				<svg
 					width="10"
