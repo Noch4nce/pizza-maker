@@ -21,6 +21,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		(state) => state.paginationReducer.pageNumber
 	)
 	const isSearch = useRef(false)
+	const isMounted = useRef(false) // why ref?
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const fakeArray = [...Array(10).keys()]
@@ -56,14 +57,15 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 			dispatch(setPageNumber(Number(parseQs.page)))
 			dispatch(setCategoryId(Number(parseQs.category)))
 			dispatch(setSortSelectedTab(sortItem))
+
+			isSearch.current = true
 		}
-		isSearch.current = true
 		// debugger
 		// console.log(isSearch, "isSearch22222222222222")
 	}, [])
 
 	useEffect(() => {
-		// render-rerender, taski ??
+		// render-rerender, taski - excess fetch??
 		// console.log(isSearch, "isSearch3333333333333333333")
 		// console.log(categoryId, "categoryId!!!!!!!!!!!!")
 		if (!isSearch.current) {
@@ -78,14 +80,17 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 	}, [categoryId, sortSelectedTab, searchValue, pageNumber])
 
 	useEffect(() => {
-		const patch = qs.stringify({
-			category: categoryId,
-			sortBy: sortSelectedTab.type,
-			order: sortSelectedTab.order,
-			page: pageNumber
-		})
+		if (isMounted.current) {
+			const patch = qs.stringify({
+				category: categoryId,
+				sortBy: sortSelectedTab.type,
+				order: sortSelectedTab.order,
+				page: pageNumber
+			})
 
-		navigate(`?${patch}`)
+			navigate(`?${patch}`)
+		}
+		isMounted.current = true
 	}, [categoryId, sortSelectedTab, pageNumber])
 
 	return (
