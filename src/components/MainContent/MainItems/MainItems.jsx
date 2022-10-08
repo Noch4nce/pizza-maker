@@ -1,12 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import qs from 'qs'
+import { useNavigate } from 'react-router-dom'
 
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 import Pagination from '../../Pagination/Pagination'
 import { SearchContext } from '../../../App'
 import { setPageNumber } from '../../../redux/reducers/paginationSlice'
+import { setCategoryId } from '../../../redux/reducers/filterSlice'
+import { sortItems } from '../MainHeader/Sort/Sort'
+import { setSortSelectedTab } from '../../../redux/reducers/sortSlice'
 
 const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const { searchValue } = useContext(SearchContext)
@@ -16,7 +21,22 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		(state) => state.paginationReducer.pageNumber
 	)
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 	const fakeArray = [...Array(10).keys()]
+
+	useEffect(() => {
+		if (window.location.search) {
+			const parseQs = qs.parse(window.location.search.substring(1))
+			const sortItem = sortItems.find(
+				(item) =>
+					item.type === parseQs.sortBy && item.order === parseQs.order
+			)
+
+			dispatch(setPageNumber(Number(parseQs.page)))
+			dispatch(setCategoryId(Number(parseQs.category)))
+			dispatch(setSortSelectedTab(sortItem))
+		}
+	}, [])
 
 	useEffect(() => {
 		setIsLoading(true)
@@ -39,7 +59,16 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		window.scrollTo(0, 0)
 	}, [categoryId, sortSelectedTab, searchValue, pageNumber])
 
-	console.log(pizzasData, 'pizzasData')
+	useEffect(() => {
+		const patch = qs.stringify({
+			category: categoryId,
+			sortBy: sortSelectedTab.type,
+			order: sortSelectedTab.order,
+			page: pageNumber
+		})
+
+		navigate(`?${patch}`)
+	}, [categoryId, sortSelectedTab, pageNumber])
 
 	return (
 		<>

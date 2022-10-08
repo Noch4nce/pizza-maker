@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const sortItems = [
+export const sortItems = [
 	{
 		id: 0,
 		name: 'популярности',
