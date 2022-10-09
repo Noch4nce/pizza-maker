@@ -8,7 +8,7 @@ const HeaderCart = () => {
 	return (
 		<div className="header__cart">
 			<Link to="/cart" className="button button--cart">
-				<span>${totalPrice} ₽</span>
+				<span>{totalPrice} ₽</span>
 				<div className="button__delimiter" />
 				<svg
 					width="18"
@@ -39,7 +39,7 @@ const HeaderCart = () => {
 						strokeLinejoin="round"
 					/>
 				</svg>
-				<span>${cartItems.length}</span>
+				<span>{cartItems.length}</span>
 			</Link>
 		</div>
 	)

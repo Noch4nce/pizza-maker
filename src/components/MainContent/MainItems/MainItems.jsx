@@ -93,6 +93,8 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		isMounted.current = true
 	}, [categoryId, sortSelectedTab, pageNumber])
 
+	console.log(pizzasData, "pizzasData")
+
 	return (
 		<>
 			<div className="content__items">
