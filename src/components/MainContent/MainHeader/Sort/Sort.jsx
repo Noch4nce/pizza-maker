@@ -57,7 +57,6 @@ const Sort = ({ sortSelectedTab, onClickSortTab }) => {
 	const handleCloseOutsidePopup = (event) => {
 		if (!event.path.includes(sortRef.current)) {
 			setIsOpen(false)
-			console.log(sortRef, 'EVENT')
 		}
 	}
 
