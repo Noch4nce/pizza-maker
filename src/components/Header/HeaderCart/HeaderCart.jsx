@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const HeaderCart = () => {
-	const { totalPrice, cartItems } = useSelector((state) => state.cartReducer)
+	const { totalPrice, totalCartCount } = useSelector(
+		(state) => state.cartReducer
+	)
 
 	return (
 		<div className="header__cart">
@@ -39,7 +41,7 @@ const HeaderCart = () => {
 						strokeLinejoin="round"
 					/>
 				</svg>
-				<span>{cartItems.length}</span>
+				<span>{totalCartCount}</span>
 			</Link>
 		</div>
 	)
