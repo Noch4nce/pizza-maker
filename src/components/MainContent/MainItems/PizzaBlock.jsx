@@ -3,14 +3,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addCartItem } from '../../../redux/reducers/cartSlice'
 // import pizzasData from '../../../assets/pizzas.json'
 
+const typeNames = ['тонкое', 'традиционное']
+
 const PizzaBlock = ({ id, imageUrl, title, price, sizes, types }) => {
 	const dispatch = useDispatch()
-	const { cartItems } = useSelector((state) => state.cartReducer)
+	const cartItem = useSelector((state) =>
+		state.cartReducer.cartItems.find((item) => item.id === id)
+	)
 	const [activeSizeIndex, setActiveSizeIndex] = useState(0)
 	const [activeTypeIndex, setActiveTypeIndex] = useState(0)
-	const typeNames = ['тонкое', 'традиционное']
 
-	const findItem = cartItems.find((item) => item.id === id)
+	const cartItemCount = cartItem ? cartItem.countPizzas : 0
+	// const findItem = cartItems.find((item) => item.id === id)
 
 	const handleAddPizzaToCart = () => {
 		const generatedPizzaItem = {
@@ -82,7 +86,7 @@ const PizzaBlock = ({ id, imageUrl, title, price, sizes, types }) => {
 							/>
 						</svg>
 						<span>Добавить</span>
-						{findItem && <i>{findItem.countPizzas}</i>}
+						{cartItemCount > 0 && <i>{cartItemCount}</i>}
 					</div>
 				</div>
 			</div>
