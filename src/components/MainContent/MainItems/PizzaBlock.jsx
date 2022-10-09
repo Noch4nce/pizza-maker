@@ -8,7 +8,7 @@ const typeNames = ['тонкое', 'традиционное']
 const PizzaBlock = ({ id, imageUrl, title, price, sizes, types }) => {
 	const dispatch = useDispatch()
 	const cartItem = useSelector((state) =>
-		state.cartReducer.cartItems.find((item) => item.id === id)
+		state.cartReducer.cartItems.find((item) => item.id === id) //que: bad practice?
 	)
 	const [activeSizeIndex, setActiveSizeIndex] = useState(0)
 	const [activeTypeIndex, setActiveTypeIndex] = useState(0)

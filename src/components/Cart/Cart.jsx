@@ -86,7 +86,7 @@ const Cart = () => {
 			</div>
 			<div>
 				{cartItems.map((data) => (
-					<CartItem {...data} />
+					<CartItem key={data.id} {...data} />
 				))}
 			</div>
 			<div className="cart__bottom">
