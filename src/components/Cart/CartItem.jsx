@@ -1,7 +1,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { addCartItem, removeCartPerItem } from '../../redux/reducers/cartSlice'
+import {
+	addCartItem,
+	deleteCartItem,
+	removeCartPerItem
+} from '../../redux/reducers/cartSlice'
 
 const CartItem = ({ id, title, imageUrl, price, type, countPizzas }) => {
 	const dispatch = useDispatch()
@@ -13,6 +17,16 @@ const CartItem = ({ id, title, imageUrl, price, type, countPizzas }) => {
 
 	const handleRemovePizza = () => {
 		dispatch(removeCartPerItem({ id, price }))
+	}
+
+	const handleDeletePizzaBlock = () => {
+		const obj = {
+			id,
+			countPizzas,
+			priceByItem
+		}
+
+		dispatch(deleteCartItem(obj))
 	}
 
 	return (
@@ -77,7 +91,10 @@ const CartItem = ({ id, title, imageUrl, price, type, countPizzas }) => {
 				<b>{priceByItem} ₽</b>
 			</div>
 			<div className="cart__item-remove">
-				<div className="button button--outline button--circle">
+				<div
+					onClick={handleDeletePizzaBlock}
+					className="button button--outline button--circle"
+				>
 					<svg
 						width="10"
 						height="10"

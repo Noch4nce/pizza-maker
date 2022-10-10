@@ -32,10 +32,19 @@ export const cartSlice = createSlice({
 			findItem.countPizzas -= 1
 			state.totalPrice -= action.payload.price
 			state.totalCartCount -= 1
+		},
+		deleteCartItem(state, action) {
+			state.cartItems = state.cartItems.filter(
+				(item) => item.id !== action.payload.id
+			)
+
+			state.totalPrice -= action.payload.priceByItem
+			state.totalCartCount -= action.payload.countPizzas
 		}
 	}
 })
 
-export const { addCartItem, removeCartPerItem } = cartSlice.actions
+export const { addCartItem, removeCartPerItem, deleteCartItem } =
+	cartSlice.actions
 
 export default cartSlice.reducer
