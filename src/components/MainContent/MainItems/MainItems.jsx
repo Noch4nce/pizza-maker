@@ -12,10 +12,11 @@ import { setPageNumber } from '../../../redux/reducers/paginationSlice'
 import { setCategoryId } from '../../../redux/reducers/filterSlice'
 import { sortItems } from '../MainHeader/Sort/Sort'
 import { setSortSelectedTab } from '../../../redux/reducers/sortSlice'
+import { addPizzasData } from '../../../redux/reducers/pizzasSlice'
 
 const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const { searchValue } = useContext(SearchContext)
-	const [pizzasData, setPizzasData] = useState([])
+	const { pizzasData } = useSelector((state) => state.pizzasReducer)
 	const [isLoading, setIsLoading] = useState(true)
 	const pageNumber = useSelector(
 		(state) => state.paginationReducer.pageNumber
@@ -42,7 +43,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 						: sortByAll + order + page + searchByTitle)
 			)
 
-			setPizzasData(response.data)
+			dispatch(addPizzasData(response.data))
 		} catch (e) {
 			console.log(e.message)
 		} finally {
