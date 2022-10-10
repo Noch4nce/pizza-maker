@@ -12,6 +12,7 @@ import { setCategoryId } from '../../../redux/reducers/filterSlice'
 import { sortItems } from '../MainHeader/Sort/Sort'
 import { setSortSelectedTab } from '../../../redux/reducers/sortSlice'
 import { fetchPizzasData } from '../../../redux/reducers/pizzasSlice'
+import ErrorBlock from '../../ErrorBlock/ErrorBlock'
 
 const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const { searchValue } = useContext(SearchContext)
@@ -94,44 +95,46 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 
 	return (
 		<>
-			<div className="content__items">
-				{status === 'loading'
-					? fakeArray.map((_, index) => <PizzaSkeleton key={index} />)
-					: pizzasData
-							// .filter((data) =>
-							// 	data.title
-							// 		.toLowerCase()
-							// 		.includes(searchValue.toLowerCase())
-							// )
-							.map((data) => {
-								const {
-									id,
-									imageUrl,
-									title,
-									price,
-									sizes,
-									types
-								} = data
+			{status === 'error' ? (
+				<ErrorBlock />
+			) : (
+				<>
+					<div className="content__items">
+						{status === 'loading'
+							? fakeArray.map((_, index) => (
+									<PizzaSkeleton key={index} />
+							  ))
+							: pizzasData.map((data) => {
+									const {
+										id,
+										imageUrl,
+										title,
+										price,
+										sizes,
+										types
+									} = data
 
-								return (
-									<PizzaBlock //que: short form {..data} ?
-										key={id}
-										id={id}
-										title={title}
-										imageUrl={imageUrl}
-										price={price}
-										sizes={sizes}
-										types={types}
-									/>
-								)
-							})}
-			</div>
+									return (
+										<PizzaBlock //que: short form {..data} ?
+											key={id}
+											id={id}
+											title={title}
+											imageUrl={imageUrl}
+											price={price}
+											sizes={sizes}
+											types={types}
+										/>
+									)
+							  })}
+					</div>
 
-			<Pagination
-				onChangePageNumber={(pageNumber) =>
-					dispatch(setPageNumber(pageNumber))
-				}
-			/>
+					<Pagination
+						onChangePageNumber={(pageNumber) =>
+							dispatch(setPageNumber(pageNumber))
+						}
+					/>
+				</>
+			)}
 		</>
 	)
 }
