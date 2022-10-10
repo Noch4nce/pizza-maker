@@ -7,7 +7,7 @@ import {
 	removeCartPerItem
 } from '../../redux/reducers/cartSlice'
 
-const CartItem = ({ id, title, imageUrl, price, type, countPizzas }) => {
+const CartItem = ({ id, title, imageUrl, price, size, type, countPizzas }) => {
 	const dispatch = useDispatch()
 	const priceByItem = price * countPizzas
 
@@ -44,7 +44,7 @@ const CartItem = ({ id, title, imageUrl, price, type, countPizzas }) => {
 			</div>
 			<div className="cart__item-info">
 				<h3>{title}</h3>
-				<p>{type} тесто, 26 см.</p>
+				<p>{type} тесто, {size} см.</p>
 			</div>
 			<div className="cart__item-count">
 				<div

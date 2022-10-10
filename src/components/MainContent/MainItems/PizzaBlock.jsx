@@ -23,7 +23,7 @@ const PizzaBlock = ({ id, imageUrl, title, price, sizes, types }) => {
 			imageUrl,
 			price,
 			type: typeNames[activeTypeIndex],
-			size: activeSizeIndex,
+			size: sizes[activeSizeIndex],
 			countPizzas: 1
 		}
 
