@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,12 +11,11 @@ import { setPageNumber } from '../../../redux/reducers/paginationSlice'
 import { setCategoryId } from '../../../redux/reducers/filterSlice'
 import { sortItems } from '../MainHeader/Sort/Sort'
 import { setSortSelectedTab } from '../../../redux/reducers/sortSlice'
-import { addPizzasData } from '../../../redux/reducers/pizzasSlice'
+import { fetchPizzasData } from '../../../redux/reducers/pizzasSlice'
 
 const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const { searchValue } = useContext(SearchContext)
-	const { pizzasData } = useSelector((state) => state.pizzasReducer)
-	const [isLoading, setIsLoading] = useState(true)
+	const { pizzasData, status } = useSelector((state) => state.pizzasReducer)
 	const pageNumber = useSelector(
 		(state) => state.paginationReducer.pageNumber
 	)
@@ -28,27 +26,22 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const fakeArray = [...Array(10).keys()]
 
 	const fetchPizzasDatta = async () => {
-		setIsLoading(true)
 		const sortByAll = `sortBy=${sortSelectedTab.type}`
 		const order = `&order=${sortSelectedTab.order}`
 		const searchByTitle = searchValue ? `&title=${searchValue}` : ''
 		const page = `&page=${pageNumber + 1}&limit=5`
 		const sortByCategories = `category=${categoryId}&${sortByAll}${order}${page}${searchByTitle}`
 
-		try {
-			const response = await axios.get(
-				'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
-					(categoryId
-						? sortByCategories
-						: sortByAll + order + page + searchByTitle)
-			)
-
-			dispatch(addPizzasData(response.data))
-		} catch (e) {
-			console.log(e.message)
-		} finally {
-			setIsLoading(false)
-		}
+		dispatch(
+			fetchPizzasData({
+				categoryId,
+				sortByAll,
+				order,
+				searchByTitle,
+				page,
+				sortByCategories
+			})
+		)
 	}
 
 	useEffect(() => {
@@ -99,12 +92,10 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		isMounted.current = true
 	}, [categoryId, sortSelectedTab, pageNumber])
 
-	console.log(pizzasData, 'pizzasData')
-
 	return (
 		<>
 			<div className="content__items">
-				{isLoading
+				{status === 'loading'
 					? fakeArray.map((_, index) => <PizzaSkeleton key={index} />)
 					: pizzasData
 							// .filter((data) =>
