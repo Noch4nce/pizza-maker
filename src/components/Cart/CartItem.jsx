@@ -16,7 +16,11 @@ const CartItem = ({ id, title, imageUrl, price, type, countPizzas }) => {
 	}
 
 	const handleRemovePizza = () => {
-		dispatch(removeCartPerItem({ id, price }))
+		if (countPizzas <= 1) {
+			handleDeletePizzaBlock()
+		} else {
+			dispatch(removeCartPerItem({ id, price }))
+		}
 	}
 
 	const handleDeletePizzaBlock = () => {
