@@ -26,7 +26,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const navigate = useNavigate()
 	const fakeArray = [...Array(10).keys()]
 
-	const fetchPizzasDatta = () => {
+	const fetchPizzasDatta = async () => {
 		setIsLoading(true)
 		const sortByAll = `sortBy=${sortSelectedTab.type}`
 		const order = `&order=${sortSelectedTab.order}`
@@ -34,15 +34,20 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		const page = `&page=${pageNumber + 1}&limit=5`
 		const sortByCategories = `category=${categoryId}&${sortByAll}${order}${page}${searchByTitle}`
 
-		axios
-			.get(
+		try {
+			const response = await axios.get(
 				'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
 					(categoryId
 						? sortByCategories
 						: sortByAll + order + page + searchByTitle)
 			)
-			.then((res) => setPizzasData(res.data))
-			.finally(() => setIsLoading(false))
+
+			setPizzasData(response.data)
+		} catch (e) {
+			console.log(e.message)
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	useEffect(() => {
@@ -93,7 +98,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		isMounted.current = true
 	}, [categoryId, sortSelectedTab, pageNumber])
 
-	console.log(pizzasData, "pizzasData")
+	console.log(pizzasData, 'pizzasData')
 
 	return (
 		<>
