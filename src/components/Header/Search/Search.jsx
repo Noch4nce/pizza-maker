@@ -1,18 +1,19 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import debounce from 'lodash.debounce'
 
-import { SearchContext } from '../../../App'
 import clearSvg from '../../../assets/images/clear.svg'
+import { setSearchValue } from '../../../redux/reducers/searchSlice'
 import styles from './styles.module.scss'
 
 const Search = () => {
+	const dispatch = useDispatch()
 	const [inputValue, setInputValue] = useState('')
-	const { setSearchValue } = useContext(SearchContext)
 	const focusInputRef = useRef(null)
 
 	const debounceSearch = useCallback(
 		debounce((target) => {
-			setSearchValue(target)
+			dispatch(setSearchValue(target))
 		}, 1000),
 		[]
 	)
@@ -24,7 +25,7 @@ const Search = () => {
 
 	const handleClearInput = () => {
 		setInputValue('')
-		setSearchValue('')
+		dispatch(setSearchValue(''))
 		focusInputRef.current.focus()
 	}
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 import Pagination from '../../Pagination/Pagination'
-import { SearchContext } from '../../../App'
 import {
 	getPageNumberSelector,
 	setPageNumber
@@ -19,9 +18,10 @@ import {
 	getPizzasDataSelector
 } from '../../../redux/reducers/pizzasSlice'
 import ErrorBlock from '../../ErrorBlock/ErrorBlock'
+import { getSearchValueSelector } from '../../../redux/reducers/searchSlice'
 
 const MainItems = ({ categoryId, sortSelectedTab }) => {
-	const { searchValue } = useContext(SearchContext)
+	const searchValue = useSelector(getSearchValueSelector)
 	const { pizzasItems, status } = useSelector(getPizzasDataSelector)
 	const pageNumber = useSelector(getPageNumberSelector)
 	const isSearch = useRef(false)
