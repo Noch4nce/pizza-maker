@@ -9,19 +9,24 @@ const initialState = {
 
 export const fetchPizzaById = createAsyncThunk(
 	'pizza/fetchPizzaById',
-	async (id) => {
-		const response = await axios.get(
-			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items/' + id
-		)
+	async (id, thunkAPI) => {
+		try {
+			const response = await axios.get(
+				'https://63356b088aa85b7c5d1ad1db.mockapi.io/items/' + id
+			)
 
-		console.log(response.data, 'RESP PIZZA BY ID')
-		return response.data
+			console.log(response.data, 'RESP PIZZA BY ID')
+			return response.data
+		} catch (error) {
+			console.log(error, 'Response error')
+			return thunkAPI.rejectWithValue('Response error')
+		}
 	}
 )
 
 export const fetchPizzasData = createAsyncThunk(
 	'pizza/fetchPizzas',
-	async (params) => {
+	async (params, thunkAPI) => {
 		const {
 			categoryId,
 			sortByAll,
@@ -31,15 +36,20 @@ export const fetchPizzasData = createAsyncThunk(
 			sortByCategories
 		} = params
 
-		const response = await axios.get(
-			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
-				(categoryId
-					? sortByCategories
-					: sortByAll + order + page + searchByTitle)
-		)
+		try {
+			const response = await axios.get(
+				'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
+					(categoryId
+						? sortByCategories
+						: sortByAll + order + page + searchByTitle)
+			)
 
-		console.log(response.data, 'RESP')
-		return response.data
+			console.log(response.data, 'RESP')
+			return response.data
+		} catch (error) {
+			console.log(error, 'Response error')
+			return thunkAPI.rejectWithValue('Response error')
+		}
 	}
 )
 
@@ -60,9 +70,9 @@ export const pizzasSlice = createSlice({
 			state.status = 'success'
 			state.pizzasItems = action.payload
 		},
-		[fetchPizzasData.rejected]: (state) => {
+		[fetchPizzasData.rejected]: (state, action) => {
 			state.status = 'error'
-			state.pizzasItems = []
+			state.pizzasItems = action.payload
 		},
 		[fetchPizzaById.pending]: (state) => {
 			state.status = 'loading'
@@ -72,9 +82,9 @@ export const pizzasSlice = createSlice({
 			state.status = 'success'
 			state.pizzaItem = action.payload
 		},
-		[fetchPizzaById.rejected]: (state) => {
+		[fetchPizzaById.rejected]: (state, action) => {
 			state.status = 'error'
-			state.pizzaItem = {}
+			state.pizzaItem = action.payload
 		}
 	}
 })

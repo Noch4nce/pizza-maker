@@ -7,6 +7,7 @@ import {
 	getPizzasDataSelector
 } from '../../redux/reducers/pizzasSlice'
 import PizzaSkeleton from '../../components/MainContent/MainItems/PizzaSkeleton/PizzaSkeleton'
+import ErrorBlock from '../../components/ErrorBlock/ErrorBlock'
 
 const DetailInfoPage = () => {
 	const params = useParams()
@@ -16,27 +17,34 @@ const DetailInfoPage = () => {
 	useEffect(() => {
 		dispatch(fetchPizzaById(params.id))
 	}, [])
-	console.log(pizzaItem, 'pizzaItem')
 
 	return (
-		<div className="pizza-block__wrapper">
-			{status === 'loading' ? (
-				<PizzaSkeleton />
+		<>
+			{status === 'error' ? (
+				<ErrorBlock />
 			) : (
-				<div className="pizza-block">
-					<img
-						className="pizza-block__image"
-						src={pizzaItem.imageUrl}
-						alt={pizzaItem.title}
-					/>
-					<h4 className="pizza-block__title">{pizzaItem.title}</h4>
+				<div className="pizza-block__wrapper">
+					{status === 'loading' ? (
+						<PizzaSkeleton />
+					) : (
+						<div className="pizza-block">
+							<img
+								className="pizza-block__image"
+								src={pizzaItem.imageUrl}
+								alt={pizzaItem.title}
+							/>
+							<h4 className="pizza-block__title">
+								{pizzaItem.title}
+							</h4>
 
-					<span className="pizza-block__price">
-						от {pizzaItem.price} ₽
-					</span>
+							<span className="pizza-block__price">
+								от {pizzaItem.price} ₽
+							</span>
+						</div>
+					)}
 				</div>
 			)}
-		</div>
+		</>
 	)
 }
 
