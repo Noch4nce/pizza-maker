@@ -3,8 +3,21 @@ import axios from 'axios'
 
 const initialState = {
 	pizzasItems: [],
+	pizzaItem: {},
 	status: 'loading'
 }
+
+export const fetchPizzaById = createAsyncThunk(
+	'pizza/fetchPizzaById',
+	async (id) => {
+		const response = await axios.get(
+			'https://63356b088aa85b7c5d1ad1db.mockapi.io/items/' + id
+		)
+
+		console.log(response.data, 'RESP PIZZA BY ID')
+		return response.data
+	}
+)
 
 export const fetchPizzasData = createAsyncThunk(
 	'pizza/fetchPizzas',
@@ -50,6 +63,18 @@ export const pizzasSlice = createSlice({
 		[fetchPizzasData.rejected]: (state) => {
 			state.status = 'error'
 			state.pizzasItems = []
+		},
+		[fetchPizzaById.pending]: (state) => {
+			state.status = 'loading'
+			state.pizzaItem = {}
+		},
+		[fetchPizzaById.fulfilled]: (state, action) => {
+			state.status = 'success'
+			state.pizzaItem = action.payload
+		},
+		[fetchPizzaById.rejected]: (state) => {
+			state.status = 'error'
+			state.pizzaItem = {}
 		}
 	}
 })
