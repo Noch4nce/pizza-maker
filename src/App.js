@@ -5,6 +5,7 @@ import Header from './components/Header/Header'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import MainPage from './pages/MainPage/MainPage'
 import CartPage from './pages/CartPage/CartPage'
+import DetailInfoPage from './pages/DetailInfoPage/DetailInfoPage'
 import './scss/app.scss'
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
 
 						<Route path="/" element={<MainPage />} />
 						<Route path="cart" element={<CartPage />} />
+						<Route path="/pizza/:id" element={<DetailInfoPage />} />
 					</Routes>
 				</div>
 			</div>
