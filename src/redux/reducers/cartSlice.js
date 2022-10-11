@@ -50,6 +50,11 @@ export const cartSlice = createSlice({
 	}
 })
 
+export const getCartDataSelector = (state) => state.cartReducer
+export const getCartItemByIdSelector = (id) => (state) =>
+	state.cartReducer.cartItems.find((item) => item.id === id)
+export const getTotalCartCountSelector = (state) => state.cartReducer.totalCartCount
+
 export const { addCartItem, removeCartPerItem, deleteCartItem, clearAllCart } =
 	cartSlice.actions
 

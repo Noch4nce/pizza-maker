@@ -7,19 +7,23 @@ import PizzaBlock from './PizzaBlock'
 import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton'
 import Pagination from '../../Pagination/Pagination'
 import { SearchContext } from '../../../App'
-import { setPageNumber } from '../../../redux/reducers/paginationSlice'
+import {
+	getPageNumberSelector,
+	setPageNumber
+} from '../../../redux/reducers/paginationSlice'
 import { setCategoryId } from '../../../redux/reducers/filterSlice'
 import { sortItems } from '../MainHeader/Sort/Sort'
 import { setSortSelectedTab } from '../../../redux/reducers/sortSlice'
-import { fetchPizzasData } from '../../../redux/reducers/pizzasSlice'
+import {
+	fetchPizzasData,
+	getPizzasDataSelector
+} from '../../../redux/reducers/pizzasSlice'
 import ErrorBlock from '../../ErrorBlock/ErrorBlock'
 
 const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const { searchValue } = useContext(SearchContext)
-	const { pizzasData, status } = useSelector((state) => state.pizzasReducer)
-	const pageNumber = useSelector(
-		(state) => state.paginationReducer.pageNumber
-	)
+	const { pizzasItems, status } = useSelector(getPizzasDataSelector)
+	const pageNumber = useSelector(getPageNumberSelector)
 	const isSearch = useRef(false)
 	const isMounted = useRef(false) // que: why ref?
 	const dispatch = useDispatch()
@@ -104,7 +108,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 							? fakeArray.map((_, index) => (
 									<PizzaSkeleton key={index} />
 							  ))
-							: pizzasData.map((data) => {
+							: pizzasItems.map((data) => {
 									const {
 										id,
 										imageUrl,

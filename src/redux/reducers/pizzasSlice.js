@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const initialState = {
-	pizzasData: [],
+	pizzasItems: [],
 	status: 'loading'
 }
 
@@ -35,22 +35,26 @@ export const pizzasSlice = createSlice({
 	initialState,
 	reducers: {
 		addPizzasData(state, action) {
-			state.pizzasData = action.payload
+			state.pizzasItems = action.payload
 		}
 	},
 	extraReducers: {
 		[fetchPizzasData.pending]: (state) => {
 			state.status = 'loading'
+			state.pizzasItems = []
 		},
 		[fetchPizzasData.fulfilled]: (state, action) => {
 			state.status = 'success'
-			state.pizzasData = action.payload
+			state.pizzasItems = action.payload
 		},
 		[fetchPizzasData.rejected]: (state) => {
 			state.status = 'error'
+			state.pizzasItems = []
 		}
 	}
 })
+
+export const getPizzasDataSelector = (state) => state.pizzasReducer
 
 export const { addPizzasData } = pizzasSlice.actions
 

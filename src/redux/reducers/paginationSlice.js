@@ -14,6 +14,9 @@ export const paginationSlice = createSlice({
 	}
 })
 
+export const getPageNumberSelector = (state) =>
+	state.paginationReducer.pageNumber
+
 export const { setPageNumber } = paginationSlice.actions
 
 export default paginationSlice.reducer

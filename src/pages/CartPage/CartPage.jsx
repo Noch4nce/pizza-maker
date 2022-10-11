@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux'
 
 import CartEmpty from '../../components/Cart/CartEmpty'
 import Cart from '../../components/Cart/Cart'
+import { getTotalCartCountSelector } from '../../redux/reducers/cartSlice'
 
 const CartPage = () => {
-	const totalCartCount = useSelector(
-		(state) => state.cartReducer.totalCartCount
-	)
+	const totalCartCount = useSelector(getTotalCartCountSelector)
 
 	if (totalCartCount <= 0) {
 		return <CartEmpty />

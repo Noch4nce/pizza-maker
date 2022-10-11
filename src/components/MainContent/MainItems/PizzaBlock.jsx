@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCartItem } from '../../../redux/reducers/cartSlice'
+import {
+	addCartItem,
+	getCartItemByIdSelector
+} from '../../../redux/reducers/cartSlice'
 // import pizzasData from '../../../assets/pizzas.json'
 
 const typeNames = ['тонкое', 'традиционное']
 
 const PizzaBlock = ({ id, imageUrl, title, price, sizes, types }) => {
 	const dispatch = useDispatch()
-	const cartItem = useSelector((state) =>
-		state.cartReducer.cartItems.find((item) => item.id === id) //que: bad practice?
-	)
+	const cartItem = useSelector(getCartItemByIdSelector(id))
 	const [activeSizeIndex, setActiveSizeIndex] = useState(0)
 	const [activeTypeIndex, setActiveTypeIndex] = useState(0)
 

@@ -20,6 +20,9 @@ export const sortSlice = createSlice({
 	}
 })
 
+export const getSortSelectedTabSelector = (state) =>
+	state.sortReducer.sortSelectedTab
+
 export const { setSortSelectedTab } = sortSlice.actions
 
 export default sortSlice.reducer

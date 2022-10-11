@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
+import { getCartDataSelector } from '../../../redux/reducers/cartSlice'
+
 const HeaderCart = () => {
-	const { totalPrice, totalCartCount } = useSelector(
-		(state) => state.cartReducer
-	)
+	const { totalPrice, totalCartCount } = useSelector(getCartDataSelector)
 
 	return (
 		<div className="header__cart">
