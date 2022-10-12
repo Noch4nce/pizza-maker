@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -13,7 +13,15 @@ import Categories from '../../components/MainContent/MainHeader/Categories/Categ
 import Sort from '../../components/MainContent/MainHeader/Sort/Sort'
 import MainItems from '../../components/MainContent/MainItems/MainItems'
 
-const MainPage = () => {
+type SortItemTypes = {
+	id: number
+	name: string
+	type: string
+	orderName: string
+	order: string
+}
+
+const MainPage: FC = () => {
 	const { categoryId, sortSelectedTab } = useSelector((state) => ({
 		categoryId: getCategoryIdSelector(state),
 		sortSelectedTab: getSortSelectedTabSelector(state)
@@ -26,11 +34,15 @@ const MainPage = () => {
 			<div className="content__top">
 				<Categories
 					categoryId={categoryId}
-					onClickChangeId={(index) => dispatch(setCategoryId(index))}
+					// @ts-ignore
+					onClickChangeId={(index: number) =>
+						dispatch(setCategoryId(index))
+					}
 				/>
 				<Sort
+					// @ts-ignore
 					sortSelectedTab={sortSelectedTab}
-					onClickSortTab={(item) =>
+					onClickSortTab={(item: SortItemTypes) =>
 						dispatch(setSortSelectedTab(item))
 					}
 				/>

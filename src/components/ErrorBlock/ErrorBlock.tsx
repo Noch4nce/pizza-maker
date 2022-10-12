@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import errorPng from '../../assets/images/error.png'
 import styles from './styles.module.scss'
 
-const ErrorBlock = () => {
+const ErrorBlock: FC = () => {
 	return (
 		<div className={styles.wrapper}>
 			<h2>Произошла ошибка 😓</h2>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -8,7 +8,7 @@ import {
 	getCartDataSelector
 } from '../../redux/reducers/cartSlice'
 
-const Cart = () => {
+const Cart: FC = () => {
 	const dispatch = useDispatch()
 	const { cartItems, totalCartCount, totalPrice } =
 		useSelector(getCartDataSelector)
@@ -96,7 +96,7 @@ const Cart = () => {
 				</div>
 			</div>
 			<div>
-				{cartItems.map((data) => (
+				{cartItems.map((data: any) => (
 					<CartItem key={data.id} {...data} />
 				))}
 			</div>

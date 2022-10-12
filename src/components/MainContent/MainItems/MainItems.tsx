@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
@@ -20,7 +20,20 @@ import {
 import ErrorBlock from '../../ErrorBlock/ErrorBlock'
 import { getSearchValueSelector } from '../../../redux/reducers/searchSlice'
 
-const MainItems = ({ categoryId, sortSelectedTab }) => {
+type sortSelectedTabTypes = {
+	id: number
+	name: string
+	type: string
+	orderName: string
+	order: string
+}
+
+type PropsTypes = {
+	categoryId: number
+	sortSelectedTab: sortSelectedTabTypes
+}
+
+const MainItems: FC<PropsTypes> = ({ categoryId, sortSelectedTab }) => {
 	const searchValue = useSelector(getSearchValueSelector)
 	const { pizzasItems, status } = useSelector(getPizzasDataSelector)
 	const pageNumber = useSelector(getPageNumberSelector)
@@ -28,7 +41,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 	const isMounted = useRef(false) // que: why ref?
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const fakeArray = [...Array(10).keys()]
+	const fakeArray = [...Array(10)]
 
 	const fetchPizzasDatta = async () => {
 		const sortByAll = `sortBy=${sortSelectedTab.type}`
@@ -38,6 +51,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 		const sortByCategories = `category=${categoryId}&${sortByAll}${order}${page}${searchByTitle}`
 
 		dispatch(
+			// @ts-ignore
 			fetchPizzasData({
 				categoryId,
 				sortByAll,
@@ -108,7 +122,7 @@ const MainItems = ({ categoryId, sortSelectedTab }) => {
 							? fakeArray.map((_, index) => (
 									<PizzaSkeleton key={index} />
 							  ))
-							: pizzasItems.map((data) => {
+							: pizzasItems.map((data: any) => {
 									const {
 										id,
 										imageUrl,
