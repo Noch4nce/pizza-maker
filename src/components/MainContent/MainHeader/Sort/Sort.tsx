@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 
-export const sortItems = [
+export const sortItems: SortItemTypes[] = [
 	{
 		id: 0,
 		name: 'популярности',
@@ -45,16 +45,24 @@ export const sortItems = [
 	}
 ]
 
-const Sort = ({ sortSelectedTab, onClickSortTab }) => {
-	const [isOpen, setIsOpen] = useState(false)
-	const sortRef = useRef(null)
+type SortItemTypes = {
+	id: number
+	name: string
+	type: string
+	orderName: string
+	order: string
+}
 
-	const handleSortByItem = (item) => {
+const Sort: FC = ({ sortSelectedTab, onClickSortTab }: any) => {
+	const [isOpen, setIsOpen] = useState(false)
+	const sortRef = useRef<HTMLDivElement>(null)
+
+	const handleSortByItem = (item: SortItemTypes) => {
 		onClickSortTab(item)
 		setIsOpen(false)
 	}
 
-	const handleCloseOutsidePopup = (event) => {
+	const handleCloseOutsidePopup = (event: any) => {
 		if (!event.path.includes(sortRef.current)) {
 			setIsOpen(false)
 		}

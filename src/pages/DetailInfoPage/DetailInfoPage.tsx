@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -9,12 +9,13 @@ import {
 import PizzaSkeleton from '../../components/MainContent/MainItems/PizzaSkeleton/PizzaSkeleton'
 import ErrorBlock from '../../components/ErrorBlock/ErrorBlock'
 
-const DetailInfoPage = () => {
+const DetailInfoPage: FC = () => {
 	const params = useParams()
 	const dispatch = useDispatch()
 	const { pizzaItem, status } = useSelector(getPizzasDataSelector)
 
 	useEffect(() => {
+		// @ts-ignore
 		dispatch(fetchPizzaById(params.id))
 	}, [])
 

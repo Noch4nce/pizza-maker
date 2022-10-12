@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 import HeaderLogo from './HeaderLogo/HeaderLogo'
 import HeaderCart from './HeaderCart/HeaderCart'
 import Search from './Search/Search'
 
-const Header = () => {
+const Header: FC = () => {
 	return (
 		<div className="header">
 			<div className="container">

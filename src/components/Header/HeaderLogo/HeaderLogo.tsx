@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { FC } from 'react'
 import logoSvg from '../../../assets/images/pizza-logo.svg'
 import { Link } from 'react-router-dom'
 
-const HeaderLogo = () => {
+const HeaderLogo: FC = () => {
 	return (
 		<Link to="/">
 			<div className="header__logo">
