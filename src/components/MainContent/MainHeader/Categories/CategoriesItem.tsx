@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-const categoriesItems = [
+const categoriesItems: string[] = [
 	'Все',
 	'Мясные',
 	'Вегетарианская',
@@ -9,7 +9,12 @@ const categoriesItems = [
 	'Закрытые'
 ]
 
-const CategoriesItem = ({ categoryId, onClickChangeId }) => {
+type PropTypes = {
+	categoryId: number
+	onClickChangeId: (index: number) => void
+}
+
+const CategoriesItem: FC<PropTypes> = ({ categoryId, onClickChangeId }) => {
 	return (
 		<>
 			{categoriesItems.map((item, index) => (

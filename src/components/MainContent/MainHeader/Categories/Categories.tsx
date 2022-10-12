@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { FC } from 'react'
 import CategoriesItem from './CategoriesItem'
 
-const Categories = ({ categoryId, onClickChangeId }) => {
+type PropTypes = {
+	categoryId: number
+	onClickChangeId: () => void
+}
+
+const Categories: FC<PropTypes> = ({ categoryId, onClickChangeId }) => {
 	return (
 		<div className="categories">
 			<ul>

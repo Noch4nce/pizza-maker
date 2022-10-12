@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import notFoundPng from '../../assets/images/404.png'
 import styles from './styles.module.scss'
 
-const NotFoundBlock = () => {
+const NotFoundBlock: FC = () => {
 	return (
 		<div className={styles.wrapper}>
 			<img

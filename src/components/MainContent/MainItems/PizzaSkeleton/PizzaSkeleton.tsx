@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import ContentLoader from 'react-content-loader'
 
-const PizzaSkeleton = () => (
+const PizzaSkeleton: FC = () => (
 	<div className="pizza-block">
 		<ContentLoader
 			speed={2}
@@ -16,7 +16,7 @@ const PizzaSkeleton = () => (
 			<rect x="0" y="336" rx="10" ry="10" width="280" height="85" />
 			<rect x="115" y="447" rx="20" ry="20" width="160" height="50" />
 			<rect x="0" y="457" rx="5" ry="5" width="90" height="30" />
-		</ContentLoader>{' '}
+		</ContentLoader>
 	</div>
 )
 

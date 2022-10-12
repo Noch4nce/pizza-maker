@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 
 import {
@@ -7,7 +7,25 @@ import {
 	removeCartPerItem
 } from '../../redux/reducers/cartSlice'
 
-const CartItem = ({ id, title, imageUrl, price, size, type, countPizzas }) => {
+type PropTypes = {
+	id: string
+	title: string
+	imageUrl: string
+	price: number
+	size: number
+	type: string
+	countPizzas: number
+}
+
+const CartItem: FC<PropTypes> = ({
+	id,
+	title,
+	imageUrl,
+	price,
+	size,
+	type,
+	countPizzas
+}) => {
 	const dispatch = useDispatch()
 	const priceByItem = price * countPizzas
 
@@ -44,7 +62,9 @@ const CartItem = ({ id, title, imageUrl, price, size, type, countPizzas }) => {
 			</div>
 			<div className="cart__item-info">
 				<h3>{title}</h3>
-				<p>{type} тесто, {size} см.</p>
+				<p>
+					{type} тесто, {size} см.
+				</p>
 			</div>
 			<div className="cart__item-count">
 				<div

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	addCartItem,
@@ -7,9 +7,25 @@ import {
 import { Link } from 'react-router-dom'
 // import pizzasData from '../../../assets/pizzas.json'
 
-const typeNames = ['тонкое', 'традиционное']
+const typeNames: string[] = ['тонкое', 'традиционное']
 
-const PizzaBlock = ({ id, imageUrl, title, price, sizes, types }) => {
+type PropTypes = {
+	id: string
+	title: string
+	imageUrl: string
+	price: number
+	sizes: number[]
+	types: number[]
+}
+
+const PizzaBlock: FC<PropTypes> = ({
+	id,
+	imageUrl,
+	title,
+	price,
+	sizes,
+	types
+}) => {
 	const dispatch = useDispatch()
 	const cartItem = useSelector(getCartItemByIdSelector(id))
 	const [activeSizeIndex, setActiveSizeIndex] = useState(0)
