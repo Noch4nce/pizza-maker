@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { getCartDataSelector } from '../../../redux/reducers/cartSlice'
 
-const HeaderCart = () => {
+const HeaderCart: FC = () => {
 	const { totalPrice, totalCartCount } = useSelector(getCartDataSelector)
 	const location = useLocation()
 
