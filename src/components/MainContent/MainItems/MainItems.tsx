@@ -20,7 +20,7 @@ import {
 import ErrorBlock from '../../ErrorBlock/ErrorBlock'
 import { getSearchValueSelector } from '../../../redux/reducers/searchSlice'
 
-type sortSelectedTabTypes = {
+type SortSelectedTabTypes = {
 	id: number
 	name: string
 	type: string
@@ -30,7 +30,7 @@ type sortSelectedTabTypes = {
 
 type PropsTypes = {
 	categoryId: number
-	sortSelectedTab: sortSelectedTabTypes
+	sortSelectedTab: SortSelectedTabTypes
 }
 
 const MainItems: FC<PropsTypes> = ({ categoryId, sortSelectedTab }) => {

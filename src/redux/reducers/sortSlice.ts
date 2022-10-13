@@ -1,6 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootStateType } from '../store'
 
-const initialState = {
+type SortItemTypes = {
+	id: number
+	name: string
+	type: string
+	orderName: string
+	order: string
+}
+
+interface initialStateInterface {
+	sortSelectedTab: SortItemTypes
+}
+
+const initialState: initialStateInterface = {
 	sortSelectedTab: {
 		id: 1,
 		name: 'популярности',
@@ -20,7 +33,7 @@ export const sortSlice = createSlice({
 	}
 })
 
-export const getSortSelectedTabSelector = (state) =>
+export const getSortSelectedTabSelector = (state: RootStateType) =>
 	state.sortReducer.sortSelectedTab
 
 export const { setSortSelectedTab } = sortSlice.actions

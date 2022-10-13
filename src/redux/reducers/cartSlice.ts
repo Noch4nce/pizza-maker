@@ -1,6 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootStateType } from '../store'
 
-const initialState = {
+type CartItemTypes = {
+	id: string
+	title: string
+	imageUrl: string
+	price: number
+	size: number
+	type: string
+	countPizzas: number
+}
+
+interface InitialStateInterface {
+	totalPrice: number
+	cartItems: CartItemTypes[]
+	totalCartCount: number
+}
+
+const initialState: InitialStateInterface = {
 	totalPrice: 0,
 	cartItems: [],
 	totalCartCount: 0
@@ -29,7 +46,9 @@ export const cartSlice = createSlice({
 				(item) => item.id === action.payload.id
 			)
 
-			findItem.countPizzas -= 1
+			if (findItem) {
+				findItem.countPizzas -= 1
+			}
 			state.totalPrice -= action.payload.price
 			state.totalCartCount -= 1
 		},
@@ -50,10 +69,11 @@ export const cartSlice = createSlice({
 	}
 })
 
-export const getCartDataSelector = (state) => state.cartReducer
-export const getCartItemByIdSelector = (id) => (state) =>
+export const getCartDataSelector = (state: RootStateType) => state.cartReducer
+export const getCartItemByIdSelector = (id: string) => (state: RootStateType) =>
 	state.cartReducer.cartItems.find((item) => item.id === id)
-export const getTotalCartCountSelector = (state) => state.cartReducer.totalCartCount
+export const getTotalCartCountSelector = (state: RootStateType) =>
+	state.cartReducer.totalCartCount
 
 export const { addCartItem, removeCartPerItem, deleteCartItem, clearAllCart } =
 	cartSlice.actions

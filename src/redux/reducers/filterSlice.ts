@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootStateType } from '../store'
 
-const initialState = {
+interface initialStateInterface {
+	categoryId: number
+}
+
+const initialState: initialStateInterface = {
 	categoryId: 0
 }
 
@@ -14,7 +19,8 @@ export const filterSlice = createSlice({
 	}
 })
 
-export const getCategoryIdSelector = (state) => state.filterReducer.categoryId
+export const getCategoryIdSelector = (state: RootStateType) =>
+	state.filterReducer.categoryId
 
 export const { setCategoryId } = filterSlice.actions
 
