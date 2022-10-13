@@ -26,7 +26,6 @@ const MainPage: FC = () => {
 		categoryId: getCategoryIdSelector(state),
 		sortSelectedTab: getSortSelectedTabSelector(state)
 	}))
-
 	const dispatch = useDispatch()
 
 	return (
@@ -34,13 +33,11 @@ const MainPage: FC = () => {
 			<div className="content__top">
 				<Categories
 					categoryId={categoryId}
-					// @ts-ignore
 					onClickChangeId={(index: number) =>
 						dispatch(setCategoryId(index))
 					}
 				/>
 				<Sort
-					// @ts-ignore
 					sortSelectedTab={sortSelectedTab}
 					onClickSortTab={(item: SortItemTypes) =>
 						dispatch(setSortSelectedTab(item))

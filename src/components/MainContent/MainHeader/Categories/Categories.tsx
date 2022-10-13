@@ -3,7 +3,7 @@ import CategoriesItem from './CategoriesItem'
 
 type PropTypes = {
 	categoryId: number
-	onClickChangeId: () => void
+	onClickChangeId: (index: number) => void
 }
 
 const Categories: FC<PropTypes> = ({ categoryId, onClickChangeId }) => {

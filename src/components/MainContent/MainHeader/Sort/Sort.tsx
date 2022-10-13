@@ -53,7 +53,16 @@ type SortItemTypes = {
 	order: string
 }
 
-const Sort: FC = ({ sortSelectedTab, onClickSortTab }: any) => {
+type PropTypes = {
+	sortSelectedTab: SortItemTypes
+	onClickSortTab: (item: SortItemTypes) => void
+}
+
+type EventPathType = MouseEvent & {
+	path: Node[]
+}
+
+const Sort: FC<PropTypes> = ({ sortSelectedTab, onClickSortTab }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const sortRef = useRef<HTMLDivElement>(null)
 
@@ -62,8 +71,10 @@ const Sort: FC = ({ sortSelectedTab, onClickSortTab }: any) => {
 		setIsOpen(false)
 	}
 
-	const handleCloseOutsidePopup = (event: any) => {
-		if (!event.path.includes(sortRef.current)) {
+	const handleCloseOutsidePopup = (event: MouseEvent) => {
+		const _event = event as EventPathType
+
+		if (sortRef.current && !_event.path.includes(sortRef.current)) {
 			setIsOpen(false)
 		}
 	}

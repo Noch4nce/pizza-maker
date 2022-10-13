@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useRef, useState } from 'react'
+import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import debounce from 'lodash.debounce'
 
@@ -18,7 +18,7 @@ const Search: FC = () => {
 		[]
 	)
 
-	const handleSetSearchValue = (event: any) => {
+	const handleSetSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
 		setInputValue(event.target.value)
 		debounceSearch(event.target.value)
 	}
