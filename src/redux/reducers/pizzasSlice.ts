@@ -1,9 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { RootStateType } from '../store'
 
-const initialState = {
+type PizzaItemTypes = {
+	id: string
+	title: string
+	imageUrl: string
+	price: number
+	sizes: number[]
+	types: number[]
+}
+
+interface initialStateInterface {
+	pizzasItems: PizzaItemTypes[]
+	pizzaItem: PizzaItemTypes | {}
+	status: 'loading' | 'error' | 'success'
+}
+
+const initialState: initialStateInterface = {
 	pizzasItems: [],
-	pizzaItem: {},
+	pizzaItem: {}, // que: initial empty obj ?
 	status: 'loading'
 }
 
@@ -62,34 +78,35 @@ export const pizzasSlice = createSlice({
 		}
 	},
 	extraReducers: {
-		[fetchPizzasData.pending]: (state) => {
+		[fetchPizzasData.pending]: (state: initialStateInterface) => {
 			state.status = 'loading'
 			state.pizzasItems = []
 		},
-		[fetchPizzasData.fulfilled]: (state, action) => {
+		[fetchPizzasData.fulfilled]: (state: initialStateInterface, action) => {
 			state.status = 'success'
 			state.pizzasItems = action.payload
 		},
-		[fetchPizzasData.rejected]: (state, action) => {
+		[fetchPizzasData.rejected]: (state: initialStateInterface, action) => {
 			state.status = 'error'
 			state.pizzasItems = action.payload
 		},
-		[fetchPizzaById.pending]: (state) => {
+		[fetchPizzaById.pending]: (state: initialStateInterface) => {
 			state.status = 'loading'
 			state.pizzaItem = {}
 		},
-		[fetchPizzaById.fulfilled]: (state, action) => {
+		[fetchPizzaById.fulfilled]: (state: initialStateInterface, action) => {
 			state.status = 'success'
 			state.pizzaItem = action.payload
 		},
-		[fetchPizzaById.rejected]: (state, action) => {
+		[fetchPizzaById.rejected]: (state: initialStateInterface, action) => {
 			state.status = 'error'
 			state.pizzaItem = action.payload
 		}
 	}
 })
 
-export const getPizzasDataSelector = (state) => state.pizzasReducer
+export const getPizzasDataSelector = (state: RootStateType) =>
+	state.pizzasReducer
 
 export const { addPizzasData } = pizzasSlice.actions
 

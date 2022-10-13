@@ -4,7 +4,7 @@ import { RootStateType } from '../store'
 type SortItemTypes = {
 	id: number
 	name: string
-	type: string
+	type: 'rating' | 'price' | 'title'
 	orderName: string
 	order: string
 }
