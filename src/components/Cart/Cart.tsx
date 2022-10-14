@@ -1,15 +1,16 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import CartItem from './CartItem'
 import {
 	clearAllCart,
 	getCartDataSelector
 } from '../../redux/reducers/cartSlice'
+import { useAppDispatch } from '../../hooks/appHooks'
 
 const Cart: FC = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const { cartItems, totalCartCount, totalPrice } =
 		useSelector(getCartDataSelector)
 
@@ -96,7 +97,7 @@ const Cart: FC = () => {
 				</div>
 			</div>
 			<div>
-				{cartItems.map((data: any) => (
+				{cartItems.map((data) => (
 					<CartItem key={data.id} {...data} />
 				))}
 			</div>

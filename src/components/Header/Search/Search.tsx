@@ -1,13 +1,13 @@
 import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import debounce from 'lodash.debounce'
+import { useAppDispatch } from '../../../hooks/appHooks'
 
 import clearSvg from '../../../assets/images/clear.svg'
 import { setSearchValue } from '../../../redux/reducers/searchSlice'
 import styles from './styles.module.scss'
 
 const Search: FC = () => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const [inputValue, setInputValue] = useState('')
 	const focusInputRef = useRef<HTMLInputElement>(null)
 

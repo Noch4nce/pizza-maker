@@ -1,10 +1,12 @@
 import React, { FC, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useAppDispatch } from '../../../hooks/appHooks'
+
 import {
 	addCartItem,
 	getCartItemByIdSelector
 } from '../../../redux/reducers/cartSlice'
-import { Link } from 'react-router-dom'
 // import pizzasData from '../../../assets/pizzas.json'
 
 const typeNames: string[] = ['тонкое', 'традиционное']
@@ -26,7 +28,7 @@ const PizzaBlock: FC<PropTypes> = ({
 	sizes,
 	types
 }) => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const cartItem = useSelector(getCartItemByIdSelector(id))
 	const [activeSizeIndex, setActiveSizeIndex] = useState(0)
 	const [activeTypeIndex, setActiveTypeIndex] = useState(0)

@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import {
 	fetchPizzaById,
@@ -8,15 +8,17 @@ import {
 } from '../../redux/reducers/pizzasSlice'
 import PizzaSkeleton from '../../components/MainContent/MainItems/PizzaSkeleton/PizzaSkeleton'
 import ErrorBlock from '../../components/ErrorBlock/ErrorBlock'
+import { useAppDispatch } from '../../hooks/appHooks'
 
 const DetailInfoPage: FC = () => {
 	const params = useParams()
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const { pizzaItem, status } = useSelector(getPizzasDataSelector)
 
 	useEffect(() => {
-		// @ts-ignore
-		dispatch(fetchPizzaById(params.id))
+		if (params.id) {
+			dispatch(fetchPizzaById(params.id))
+		}
 	}, [])
 
 	return (
@@ -28,20 +30,22 @@ const DetailInfoPage: FC = () => {
 					{status === 'loading' ? (
 						<PizzaSkeleton />
 					) : (
-						<div className="pizza-block">
-							<img
-								className="pizza-block__image"
-								src={pizzaItem.imageUrl}
-								alt={pizzaItem.title}
-							/>
-							<h4 className="pizza-block__title">
-								{pizzaItem.title}
-							</h4>
+						pizzaItem && (
+							<div className="pizza-block">
+								<img
+									className="pizza-block__image"
+									src={pizzaItem.imageUrl}
+									alt={pizzaItem.title}
+								/>
+								<h4 className="pizza-block__title">
+									{pizzaItem.title}
+								</h4>
 
-							<span className="pizza-block__price">
-								от {pizzaItem.price} ₽
-							</span>
-						</div>
+								<span className="pizza-block__price">
+									от {pizzaItem.price} ₽
+								</span>
+							</div>
+						)
 					)}
 				</div>
 			)}

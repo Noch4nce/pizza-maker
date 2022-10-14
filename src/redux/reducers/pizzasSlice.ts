@@ -20,19 +20,19 @@ type ValidationErrors = {
 
 export enum EnumStatus {
 	LOADING = 'loading',
-	SUCCESS = 'error',
-	ERROR = 'success'
+	SUCCESS = 'success',
+	ERROR = 'error'
 }
 
 interface InitialStateInterface {
 	pizzasItems: PizzaItemTypes[]
-	pizzaItem: PizzaItemTypes | {}
+	pizzaItem: PizzaItemTypes | null
 	status: EnumStatus
 }
 
 const initialState: InitialStateInterface = {
 	pizzasItems: [],
-	pizzaItem: {}, // que: initial empty obj ?
+	pizzaItem: null, // que: initial empty obj ?
 	status: EnumStatus.LOADING
 }
 
@@ -73,8 +73,8 @@ export const fetchPizzasData = createAsyncThunk(
 
 		try {
 			const response = await axios.get<PizzaItemTypes[]>(
-				'https:// 63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
-					(categoryId
+				'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
+					(categoryId !== '0'
 						? sortByCategories
 						: sortByAll + order + page + searchByTitle)
 			)
@@ -128,7 +128,7 @@ export const pizzasSlice = createSlice({
 			fetchPizzaById.pending,
 			(state: InitialStateInterface) => {
 				state.status = EnumStatus.LOADING
-				state.pizzaItem = {}
+				state.pizzaItem = null
 			}
 		)
 		builder.addCase(
@@ -142,7 +142,7 @@ export const pizzasSlice = createSlice({
 			fetchPizzaById.rejected,
 			(state: InitialStateInterface) => {
 				state.status = EnumStatus.ERROR
-				state.pizzaItem = {}
+				state.pizzaItem = null
 			}
 		)
 	}

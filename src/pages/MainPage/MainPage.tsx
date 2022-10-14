@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { RootStateType } from '../../redux/store'
+import { useAppDispatch } from '../../hooks/appHooks'
 
 import {
 	getCategoryIdSelector,
@@ -23,11 +25,13 @@ type SortItemTypes = {
 }
 
 const MainPage: FC = () => {
-	const { categoryId, sortSelectedTab } = useSelector((state) => ({
-		categoryId: getCategoryIdSelector(state),
-		sortSelectedTab: getSortSelectedTabSelector(state)
-	}))
-	const dispatch = useDispatch()
+	const { categoryId, sortSelectedTab } = useSelector(
+		(state: RootStateType) => ({
+			categoryId: getCategoryIdSelector(state),
+			sortSelectedTab: getSortSelectedTabSelector(state)
+		})
+	)
+	const dispatch = useAppDispatch()
 
 	return (
 		<>

@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
-import { useDispatch } from 'react-redux'
 
 import {
 	addCartItem,
+	CartItemTypes,
 	deleteCartItem,
 	removeCartPerItem
 } from '../../redux/reducers/cartSlice'
+import { useAppDispatch } from '../../hooks/appHooks'
 
 type PropTypes = {
 	id: string
@@ -26,11 +27,11 @@ const CartItem: FC<PropTypes> = ({
 	type,
 	countPizzas
 }) => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const priceByItem = price * countPizzas
 
 	const handleAddPizza = () => {
-		dispatch(addCartItem({ id, price }))
+		dispatch(addCartItem({ id, price } as CartItemTypes))
 	}
 
 	const handleRemovePizza = () => {

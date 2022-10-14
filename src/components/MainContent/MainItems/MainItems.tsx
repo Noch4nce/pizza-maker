@@ -75,14 +75,13 @@ const MainItems: FC<PropsTypes> = ({ categoryId, sortSelectedTab }) => {
 					item.type === parseQs.sortBy && item.order === parseQs.order
 			)
 
-			dispatch(setPageNumber(Number(parseQs.page)))
-			dispatch(setCategoryId(Number(parseQs.category)))
-
 			if (sortItem) {
 				dispatch(setSortSelectedTab(sortItem))
 			} else {
 				dispatch(setSortSelectedTab(sortItems[0]))
 			}
+			dispatch(setPageNumber(Number(parseQs.page)))
+			dispatch(setCategoryId(Number(parseQs.category)))
 
 			isSearch.current = true
 		}
@@ -130,7 +129,7 @@ const MainItems: FC<PropsTypes> = ({ categoryId, sortSelectedTab }) => {
 							? fakeArray.map((_, index) => (
 									<PizzaSkeleton key={index} />
 							  ))
-							: pizzasItems.map((data: any) => {
+							: pizzasItems.map((data) => {
 									const {
 										id,
 										imageUrl,

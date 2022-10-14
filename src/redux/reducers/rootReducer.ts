@@ -14,3 +14,6 @@ export const rootReducer = combineReducers({
 	pizzasReducer,
 	searchReducer
 })
+
+// type GetStoreStateType = typeof rootReducer
+// export type RootStateType = ReturnType<GetStoreStateType>
