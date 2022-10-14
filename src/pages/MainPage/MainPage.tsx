@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { RootStateType } from '../../redux/store'
 import { useAppDispatch } from '../../hooks/appHooks'
@@ -38,15 +38,15 @@ const MainPage: FC = () => {
 			<div className="content__top">
 				<Categories
 					categoryId={categoryId}
-					onClickChangeId={(index: number) =>
+					onClickChangeId={useCallback((index: number) => {
 						dispatch(setCategoryId(index))
-					}
+					}, [])}
 				/>
 				<Sort
 					sortSelectedTab={sortSelectedTab}
-					onClickSortTab={(item: SortItemTypes) =>
+					onClickSortTab={useCallback((item: SortItemTypes) => {
 						dispatch(setSortSelectedTab(item))
-					}
+					}, [])}
 				/>
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
