@@ -1,45 +1,46 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
+import { EnumSortTypes } from '../../../../redux/reducers/sortSlice'
 
 export const sortItems: SortItemTypes[] = [
 	{
 		id: 0,
 		name: 'популярности',
-		type: 'rating',
+		type: EnumSortTypes.RATING,
 		orderName: 'взр',
 		order: 'asc'
 	},
 	{
 		id: 1,
 		name: 'популярности',
-		type: 'rating',
+		type: EnumSortTypes.RATING,
 		orderName: 'убв',
 		order: 'desc'
 	},
 	{
 		id: 2,
 		name: 'цене',
-		type: 'price',
+		type: EnumSortTypes.PRICE,
 		orderName: 'взр',
 		order: 'asc'
 	},
 	{
 		id: 3,
 		name: 'цене',
-		type: 'price',
+		type: EnumSortTypes.PRICE,
 		orderName: 'убв',
 		order: 'desc'
 	},
 	{
 		id: 4,
 		name: 'алфавиту',
-		type: 'title',
+		type: EnumSortTypes.TITLE,
 		orderName: 'взр',
 		order: 'asc'
 	},
 	{
 		id: 5,
 		name: 'алфавиту',
-		type: 'title',
+		type: EnumSortTypes.TITLE,
 		orderName: 'убв',
 		order: 'desc'
 	}
@@ -48,7 +49,7 @@ export const sortItems: SortItemTypes[] = [
 type SortItemTypes = {
 	id: number
 	name: string
-	type: string
+	type: EnumSortTypes
 	orderName: string
 	order: string
 }

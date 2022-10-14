@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,18 +12,22 @@ import {
 } from '../../../redux/reducers/paginationSlice'
 import { setCategoryId } from '../../../redux/reducers/filterSlice'
 import { sortItems } from '../MainHeader/Sort/Sort'
-import { setSortSelectedTab } from '../../../redux/reducers/sortSlice'
+import {
+	EnumSortTypes,
+	setSortSelectedTab
+} from '../../../redux/reducers/sortSlice'
 import {
 	fetchPizzasData,
 	getPizzasDataSelector
 } from '../../../redux/reducers/pizzasSlice'
 import ErrorBlock from '../../ErrorBlock/ErrorBlock'
 import { getSearchValueSelector } from '../../../redux/reducers/searchSlice'
+import { useAppDispatch } from '../../../hooks/appHooks'
 
 type SortSelectedTabTypes = {
 	id: number
 	name: string
-	type: string
+	type: EnumSortTypes
 	orderName: string
 	order: string
 }
@@ -39,7 +43,7 @@ const MainItems: FC<PropsTypes> = ({ categoryId, sortSelectedTab }) => {
 	const pageNumber = useSelector(getPageNumberSelector)
 	const isSearch = useRef(false)
 	const isMounted = useRef(false) // que: why ref?
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 	const fakeArray = [...Array(10)]
 
@@ -52,7 +56,7 @@ const MainItems: FC<PropsTypes> = ({ categoryId, sortSelectedTab }) => {
 
 		dispatch(
 			fetchPizzasData({
-				categoryId,
+				categoryId: String(categoryId),
 				sortByAll,
 				order,
 				searchByTitle,
@@ -73,7 +77,12 @@ const MainItems: FC<PropsTypes> = ({ categoryId, sortSelectedTab }) => {
 
 			dispatch(setPageNumber(Number(parseQs.page)))
 			dispatch(setCategoryId(Number(parseQs.category)))
-			dispatch(setSortSelectedTab(sortItem))
+
+			if (sortItem) {
+				dispatch(setSortSelectedTab(sortItem))
+			} else {
+				dispatch(setSortSelectedTab(sortItems[0]))
+			}
 
 			isSearch.current = true
 		}

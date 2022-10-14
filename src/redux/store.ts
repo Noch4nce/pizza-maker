@@ -7,3 +7,4 @@ export const store = configureStore({
 
 type GetStoreStateType = typeof store.getState
 export type RootStateType = ReturnType<GetStoreStateType>
+export type AppDispatch = typeof store.dispatch

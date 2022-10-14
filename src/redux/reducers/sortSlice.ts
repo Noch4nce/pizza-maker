@@ -1,10 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootStateType } from '../store'
 
+export enum EnumSortTypes {
+	RATING = 'rating',
+	PRICE = 'price',
+	TITLE = 'title'
+}
+
 type SortItemTypes = {
 	id: number
 	name: string
-	type: 'rating' | 'price' | 'title'
+	type: EnumSortTypes
 	orderName: string
 	order: string
 }
@@ -17,7 +23,7 @@ const initialState: initialStateInterface = {
 	sortSelectedTab: {
 		id: 1,
 		name: 'популярности',
-		type: 'rating',
+		type: EnumSortTypes.RATING,
 		orderName: 'убв',
 		order: 'desc'
 	}

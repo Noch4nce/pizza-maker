@@ -6,6 +6,7 @@ import {
 	setCategoryId
 } from '../../redux/reducers/filterSlice'
 import {
+	EnumSortTypes,
 	getSortSelectedTabSelector,
 	setSortSelectedTab
 } from '../../redux/reducers/sortSlice'
@@ -16,7 +17,7 @@ import MainItems from '../../components/MainContent/MainItems/MainItems'
 type SortItemTypes = {
 	id: number
 	name: string
-	type: string
+	type: EnumSortTypes
 	orderName: string
 	order: string
 }
