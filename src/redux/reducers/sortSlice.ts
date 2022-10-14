@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootStateType } from '../store'
 
 type SortItemTypes = {
@@ -27,7 +27,7 @@ export const sortSlice = createSlice({
 	name: 'sort',
 	initialState,
 	reducers: {
-		setSortSelectedTab(state, action) {
+		setSortSelectedTab(state, action: PayloadAction<SortItemTypes>) {
 			state.sortSelectedTab = action.payload
 		}
 	}

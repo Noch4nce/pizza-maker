@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootStateType } from '../store'
 
 interface initialStateInterface {
@@ -13,7 +13,7 @@ export const paginationSlice = createSlice({
 	name: 'pagination',
 	initialState,
 	reducers: {
-		setPageNumber(state, action) {
+		setPageNumber(state, action: PayloadAction<number>) {
 			state.pageNumber = action.payload
 		}
 	}

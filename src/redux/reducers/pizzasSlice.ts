@@ -1,23 +1,30 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { RootStateType } from '../store'
+import type { AxiosError } from 'axios'
 
 type PizzaItemTypes = {
 	id: string
 	title: string
 	imageUrl: string
 	price: number
+	category: number
+	rating: number
 	sizes: number[]
 	types: number[]
 }
 
-interface initialStateInterface {
+type ValidationErrors = {
+	errorMessage: string
+}
+
+interface InitialStateInterface {
 	pizzasItems: PizzaItemTypes[]
 	pizzaItem: PizzaItemTypes | {}
 	status: 'loading' | 'error' | 'success'
 }
 
-const initialState: initialStateInterface = {
+const initialState: InitialStateInterface = {
 	pizzasItems: [],
 	pizzaItem: {}, // que: initial empty obj ?
 	status: 'loading'
@@ -25,15 +32,21 @@ const initialState: initialStateInterface = {
 
 export const fetchPizzaById = createAsyncThunk(
 	'pizza/fetchPizzaById',
-	async (id, thunkAPI) => {
+	async (id: string, thunkAPI) => {
 		try {
-			const response = await axios.get(
+			const response = await axios.get<PizzaItemTypes>(
 				'https://63356b088aa85b7c5d1ad1db.mockapi.io/items/' + id
 			)
 
 			console.log(response.data, 'RESP PIZZA BY ID')
 			return response.data
-		} catch (error) {
+		} catch (err: any) {
+			const error: AxiosError<ValidationErrors> = err
+
+			if (!error.response) {
+				throw err
+			}
+
 			console.log(error, 'Response error')
 			return thunkAPI.rejectWithValue('Response error')
 		}
@@ -42,7 +55,7 @@ export const fetchPizzaById = createAsyncThunk(
 
 export const fetchPizzasData = createAsyncThunk(
 	'pizza/fetchPizzas',
-	async (params, thunkAPI) => {
+	async (params: Record<string, string>, thunkAPI) => {
 		const {
 			categoryId,
 			sortByAll,
@@ -53,8 +66,8 @@ export const fetchPizzasData = createAsyncThunk(
 		} = params
 
 		try {
-			const response = await axios.get(
-				'https://63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
+			const response = await axios.get<PizzaItemTypes[]>(
+				'https:// 63356b088aa85b7c5d1ad1db.mockapi.io/items?' +
 					(categoryId
 						? sortByCategories
 						: sortByAll + order + page + searchByTitle)
@@ -62,7 +75,13 @@ export const fetchPizzasData = createAsyncThunk(
 
 			console.log(response.data, 'RESP')
 			return response.data
-		} catch (error) {
+		} catch (err: any) {
+			const error: AxiosError<ValidationErrors> = err
+
+			if (!error.response) {
+				throw err
+			}
+
 			console.log(error, 'Response error')
 			return thunkAPI.rejectWithValue('Response error')
 		}
@@ -72,42 +91,58 @@ export const fetchPizzasData = createAsyncThunk(
 export const pizzasSlice = createSlice({
 	name: 'pizza',
 	initialState,
-	reducers: {
-		addPizzasData(state, action) {
-			state.pizzasItems = action.payload
-		}
-	},
-	extraReducers: {
-		[fetchPizzasData.pending]: (state: initialStateInterface) => {
-			state.status = 'loading'
-			state.pizzasItems = []
-		},
-		[fetchPizzasData.fulfilled]: (state: initialStateInterface, action) => {
-			state.status = 'success'
-			state.pizzasItems = action.payload
-		},
-		[fetchPizzasData.rejected]: (state: initialStateInterface, action) => {
-			state.status = 'error'
-			state.pizzasItems = action.payload
-		},
-		[fetchPizzaById.pending]: (state: initialStateInterface) => {
-			state.status = 'loading'
-			state.pizzaItem = {}
-		},
-		[fetchPizzaById.fulfilled]: (state: initialStateInterface, action) => {
-			state.status = 'success'
-			state.pizzaItem = action.payload
-		},
-		[fetchPizzaById.rejected]: (state: initialStateInterface, action) => {
-			state.status = 'error'
-			state.pizzaItem = action.payload
-		}
+	reducers: {},
+	extraReducers: (builder) => {
+		builder.addCase(
+			fetchPizzasData.pending,
+			(state: InitialStateInterface) => {
+				state.status = 'loading'
+				state.pizzasItems = []
+			}
+		)
+		builder.addCase(
+			fetchPizzasData.fulfilled,
+			(
+				state: InitialStateInterface,
+				action: PayloadAction<PizzaItemTypes[]>
+			) => {
+				state.status = 'success'
+				state.pizzasItems = action.payload
+			}
+		)
+		builder.addCase(
+			fetchPizzasData.rejected,
+			(state: InitialStateInterface) => {
+				state.status = 'error'
+				state.pizzasItems = []
+			}
+		)
+
+		builder.addCase(
+			fetchPizzaById.pending,
+			(state: InitialStateInterface) => {
+				state.status = 'loading'
+				state.pizzaItem = {}
+			}
+		)
+		builder.addCase(
+			fetchPizzaById.fulfilled,
+			(state: InitialStateInterface, action) => {
+				state.status = 'success'
+				state.pizzaItem = action.payload
+			}
+		)
+		builder.addCase(
+			fetchPizzaById.rejected,
+			(state: InitialStateInterface) => {
+				state.status = 'error'
+				state.pizzaItem = {}
+			}
+		)
 	}
 })
 
 export const getPizzasDataSelector = (state: RootStateType) =>
 	state.pizzasReducer
-
-export const { addPizzasData } = pizzasSlice.actions
 
 export default pizzasSlice.reducer
