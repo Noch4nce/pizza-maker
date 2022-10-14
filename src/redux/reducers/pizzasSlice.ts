@@ -18,16 +18,22 @@ type ValidationErrors = {
 	errorMessage: string
 }
 
+export enum EnumStatus {
+	LOADING = 'loading',
+	SUCCESS = 'error',
+	ERROR = 'success'
+}
+
 interface InitialStateInterface {
 	pizzasItems: PizzaItemTypes[]
 	pizzaItem: PizzaItemTypes | {}
-	status: 'loading' | 'error' | 'success'
+	status: EnumStatus
 }
 
 const initialState: InitialStateInterface = {
 	pizzasItems: [],
 	pizzaItem: {}, // que: initial empty obj ?
-	status: 'loading'
+	status: EnumStatus.LOADING
 }
 
 export const fetchPizzaById = createAsyncThunk(
@@ -96,7 +102,7 @@ export const pizzasSlice = createSlice({
 		builder.addCase(
 			fetchPizzasData.pending,
 			(state: InitialStateInterface) => {
-				state.status = 'loading'
+				state.status = EnumStatus.LOADING
 				state.pizzasItems = []
 			}
 		)
@@ -106,14 +112,14 @@ export const pizzasSlice = createSlice({
 				state: InitialStateInterface,
 				action: PayloadAction<PizzaItemTypes[]>
 			) => {
-				state.status = 'success'
+				state.status = EnumStatus.SUCCESS
 				state.pizzasItems = action.payload
 			}
 		)
 		builder.addCase(
 			fetchPizzasData.rejected,
 			(state: InitialStateInterface) => {
-				state.status = 'error'
+				state.status = EnumStatus.ERROR
 				state.pizzasItems = []
 			}
 		)
@@ -121,21 +127,21 @@ export const pizzasSlice = createSlice({
 		builder.addCase(
 			fetchPizzaById.pending,
 			(state: InitialStateInterface) => {
-				state.status = 'loading'
+				state.status = EnumStatus.LOADING
 				state.pizzaItem = {}
 			}
 		)
 		builder.addCase(
 			fetchPizzaById.fulfilled,
 			(state: InitialStateInterface, action) => {
-				state.status = 'success'
+				state.status = EnumStatus.SUCCESS
 				state.pizzaItem = action.payload
 			}
 		)
 		builder.addCase(
 			fetchPizzaById.rejected,
 			(state: InitialStateInterface) => {
-				state.status = 'error'
+				state.status = EnumStatus.ERROR
 				state.pizzaItem = {}
 			}
 		)

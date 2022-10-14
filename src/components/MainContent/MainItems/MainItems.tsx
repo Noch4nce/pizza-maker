@@ -51,7 +51,6 @@ const MainItems: FC<PropsTypes> = ({ categoryId, sortSelectedTab }) => {
 		const sortByCategories = `category=${categoryId}&${sortByAll}${order}${page}${searchByTitle}`
 
 		dispatch(
-			// @ts-ignore
 			fetchPizzasData({
 				categoryId,
 				sortByAll,
