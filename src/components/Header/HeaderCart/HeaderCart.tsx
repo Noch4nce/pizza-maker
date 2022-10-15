@@ -1,12 +1,21 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { getCartDataSelector } from '../../../redux/reducers/cartSlice'
 
 const HeaderCart: FC = () => {
-	const { totalPrice, totalCartCount } = useSelector(getCartDataSelector)
+	const { cartItems, totalPrice, totalCartCount } = useSelector(getCartDataSelector)
 	const location = useLocation()
+	const isMounted = useRef(false)
+
+	useEffect(() => {
+		if (isMounted.current) {
+			localStorage.setItem('cartData', JSON.stringify(cartItems))
+		}
+
+		isMounted.current = true
+	}, [cartItems])
 
 	return (
 		<div className="header__cart">
