@@ -7,14 +7,12 @@ import {
 	getCategoryIdSelector,
 	setCategoryId
 } from '../../redux/reducers/filterSlice'
-import {
-	EnumSortTypes,
-	getSortSelectedTabSelector,
-	setSortSelectedTab
-} from '../../redux/reducers/sortSlice'
+import { setSortSelectedTab } from '../../redux/reducers/sortReducer/sortSlice'
 import Categories from '../../components/MainContent/MainHeader/Categories/Categories'
 import Sort from '../../components/MainContent/MainHeader/Sort/Sort'
 import MainItems from '../../components/MainContent/MainItems/MainItems'
+import { EnumSortTypes } from '../../redux/reducers/sortReducer/sortTypes'
+import { getSortSelectedTabSelector } from '../../redux/reducers/sortReducer/sortSelectors'
 
 type SortItemTypes = {
 	id: number

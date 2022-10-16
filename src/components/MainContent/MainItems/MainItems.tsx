@@ -12,17 +12,13 @@ import {
 } from '../../../redux/reducers/paginationSlice'
 import { setCategoryId } from '../../../redux/reducers/filterSlice'
 import { sortItems } from '../MainHeader/Sort/Sort'
-import {
-	EnumSortTypes,
-	setSortSelectedTab
-} from '../../../redux/reducers/sortSlice'
-import {
-	fetchPizzasData,
-	getPizzasDataSelector
-} from '../../../redux/reducers/pizzasSlice'
+import { setSortSelectedTab } from '../../../redux/reducers/sortReducer/sortSlice'
 import ErrorBlock from '../../ErrorBlock/ErrorBlock'
 import { getSearchValueSelector } from '../../../redux/reducers/searchSlice'
 import { useAppDispatch } from '../../../hooks/appHooks'
+import { EnumSortTypes } from '../../../redux/reducers/sortReducer/sortTypes'
+import { getPizzasDataSelector } from '../../../redux/reducers/pizzasReducer/pizzasSelectors'
+import { fetchPizzasData } from '../../../redux/reducers/pizzasReducer/pizzaAsyncActions'
 
 type SortSelectedTabTypes = {
 	id: number

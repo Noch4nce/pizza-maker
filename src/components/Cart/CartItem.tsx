@@ -2,11 +2,11 @@ import React, { FC } from 'react'
 
 import {
 	addCartItem,
-	CartItemTypes,
 	deleteCartItem,
 	removeCartPerItem
-} from '../../redux/reducers/cartSlice'
+} from '../../redux/reducers/cartReducer/cartSlice'
 import { useAppDispatch } from '../../hooks/appHooks'
+import { CartItemTypes } from '../../redux/reducers/cartReducer/cartTypes'
 
 type PropTypes = {
 	id: string

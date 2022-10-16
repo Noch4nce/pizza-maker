@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import CartEmpty from '../../components/Cart/CartEmpty'
 import Cart from '../../components/Cart/Cart'
-import { getTotalCartCountSelector } from '../../redux/reducers/cartSlice'
+import { getTotalCartCountSelector } from '../../redux/reducers/cartReducer/cartSelectors'
 
 const CartPage: FC = () => {
 	const totalCartCount = useSelector(getTotalCartCountSelector)

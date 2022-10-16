@@ -3,10 +3,8 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../../../hooks/appHooks'
 
-import {
-	addCartItem,
-	getCartItemByIdSelector
-} from '../../../redux/reducers/cartSlice'
+import { addCartItem } from '../../../redux/reducers/cartReducer/cartSlice'
+import { getCartItemByIdSelector } from '../../../redux/reducers/cartReducer/cartSelectors'
 // import pizzasData from '../../../assets/pizzas.json'
 
 const typeNames: string[] = ['тонкое', 'традиционное']

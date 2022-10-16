@@ -1,23 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootStateType } from '../store'
-
-export enum EnumSortTypes {
-	RATING = 'rating',
-	PRICE = 'price',
-	TITLE = 'title'
-}
-
-type SortItemTypes = {
-	id: number
-	name: string
-	type: EnumSortTypes
-	orderName: string
-	order: string
-}
-
-interface initialStateInterface {
-	sortSelectedTab: SortItemTypes
-}
+import {
+	EnumSortTypes,
+	initialStateInterface,
+	SortItemTypes
+} from './sortTypes'
 
 const initialState: initialStateInterface = {
 	sortSelectedTab: {
@@ -38,9 +24,6 @@ export const sortSlice = createSlice({
 		}
 	}
 })
-
-export const getSortSelectedTabSelector = (state: RootStateType) =>
-	state.sortReducer.sortSelectedTab
 
 export const { setSortSelectedTab } = sortSlice.actions
 

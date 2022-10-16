@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import CartItem from './CartItem'
-import {
-	clearAllCart,
-	getCartDataSelector
-} from '../../redux/reducers/cartSlice'
+import { clearAllCart } from '../../redux/reducers/cartReducer/cartSlice'
 import { useAppDispatch } from '../../hooks/appHooks'
+import { getCartDataSelector } from '../../redux/reducers/cartReducer/cartSelectors'
 
 const Cart: FC = () => {
 	const dispatch = useAppDispatch()

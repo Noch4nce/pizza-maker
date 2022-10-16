@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
-import { EnumSortTypes } from '../../../../redux/reducers/sortSlice'
 import { useWhyDidYouUpdate } from 'ahooks'
+
+import { EnumSortTypes } from '../../../../redux/reducers/sortReducer/sortTypes'
 
 export const sortItems: SortItemTypes[] = [
 	{

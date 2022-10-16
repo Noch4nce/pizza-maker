@@ -2,13 +2,11 @@ import React, { FC, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import {
-	fetchPizzaById,
-	getPizzasDataSelector
-} from '../../redux/reducers/pizzasSlice'
 import PizzaSkeleton from '../../components/MainContent/MainItems/PizzaSkeleton/PizzaSkeleton'
 import ErrorBlock from '../../components/ErrorBlock/ErrorBlock'
 import { useAppDispatch } from '../../hooks/appHooks'
+import { getPizzasDataSelector } from '../../redux/reducers/pizzasReducer/pizzasSelectors'
+import { fetchPizzaById } from '../../redux/reducers/pizzasReducer/pizzaAsyncActions'
 
 const DetailInfoPage: FC = () => {
 	const params = useParams()
