@@ -5,12 +5,20 @@ import MainPage from './pages/MainPage/MainPage'
 import MainLayout from './layouts/MainLayout'
 import './scss/app.scss'
 
-const CartPage = React.lazy(() => import('./pages/CartPage/CartPage'))
+const CartPage = React.lazy(
+	() => import(/* webpackChunkName: "CartPage" */ './pages/CartPage/CartPage')
+)
 const DetailInfoPage = React.lazy(
-	() => import('./pages/DetailInfoPage/DetailInfoPage')
+	() =>
+		import(
+			/* webpackChunkName: "DetailInfoPage" */ './pages/DetailInfoPage/DetailInfoPage'
+		)
 )
 const NotFoundPage = React.lazy(
-	() => import('./pages/NotFoundPage/NotFoundPage')
+	() =>
+		import(
+			/* webpackChunkName: "NotFoundPage" */ './pages/NotFoundPage/NotFoundPage'
+		)
 )
 
 const App = () => {
