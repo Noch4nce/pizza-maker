@@ -4,8 +4,8 @@
 	display: inline-block;
 	background-color: $orange;
 	border-radius: 30px;
-	padding: 10px 20px;
-	min-width: 100px;
+	padding: 8px 20px;
+	min-width: 120px;
 	text-align: center;
 	cursor: pointer;
 	transition: background-color $duration ease-in-out,
@@ -55,11 +55,10 @@
 	}
 
 	&--outline {
-		background-color: #fff;
-		border-color: $orange;
+		background-color: rgb(255, 240, 230);
 		&,
 		span {
-			color: $orange;
+			color: rgb(209, 87, 0);
 		}
 
 		svg {
@@ -69,11 +68,11 @@
 		}
 
 		&:hover {
-			background-color: $orange;
+			background-color: rgb(255, 210, 179);
 
 			&,
 			span {
-				color: #fff;
+				color: rgb(209, 87, 0);
 			}
 
 			svg {
@@ -102,7 +101,6 @@
 		}
 
 		span {
-			font-weight: 600;
 			font-size: 16px;
 		}
 

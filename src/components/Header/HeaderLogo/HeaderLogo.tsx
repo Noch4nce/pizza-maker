@@ -22,7 +22,7 @@ const HeaderLogo: FC = () => {
 				</span>
 				<div className="header__time">
 					<span>
-						29 мин <strong>·</strong> 4.82
+						31 мин <strong>·</strong> 4.82
 					</span>
 					<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
 						<defs>

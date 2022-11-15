@@ -15,7 +15,7 @@ const Pagination: FC<PropTypes> = ({ onChangePageNumber }) => {
 			nextLabel=">"
 			onPageChange={(event) => onChangePageNumber(event.selected)}
 			pageRangeDisplayed={8}
-			pageCount={2}
+			pageCount={3}
 			previousLabel="<"
 		/>
 	)
