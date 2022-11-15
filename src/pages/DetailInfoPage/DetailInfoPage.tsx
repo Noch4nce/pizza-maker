@@ -7,6 +7,7 @@ import ErrorBlock from '../../components/ErrorBlock/ErrorBlock'
 import { useAppDispatch } from '../../hooks/appHooks'
 import { getPizzasDataSelector } from '../../redux/reducers/pizzasReducer/pizzasSelectors'
 import { fetchPizzaById } from '../../redux/reducers/pizzasReducer/pizzaAsyncActions'
+import styles from './styles.module.scss'
 
 const DetailInfoPage: FC = () => {
 	const params = useParams()
@@ -29,19 +30,39 @@ const DetailInfoPage: FC = () => {
 						<PizzaSkeleton />
 					) : (
 						pizzaItem && (
-							<div className="pizza-block">
+							<div className={styles.pizzaWrapper}>
 								<img
-									className="pizza-block__image"
+									className={styles.pizzaImg}
 									src={pizzaItem.imageUrl}
 									alt={pizzaItem.title}
 								/>
-								<h4 className="pizza-block__title">
-									{pizzaItem.title}
-								</h4>
 
-								<span className="pizza-block__price">
-									от {pizzaItem.price} ₽
-								</span>
+								<div className={styles.pizzaContent}>
+									<div>
+										<h4 className="pizza-block__title">
+											{pizzaItem.title}
+										</h4>
+
+										<span className={styles.pizzaSelector}>
+											30 см, традиционное тесто, 570 г
+										</span>
+
+										<div
+											className={styles.pizzaDescription}
+										>
+											{pizzaItem.description}
+										</div>
+									</div>
+
+									<div
+										className={`button ${styles.pizzaBtn}`}
+									>
+										<span>
+											Добавить в корзину за{' '}
+											{pizzaItem.price} ₽
+										</span>
+									</div>
+								</div>
 							</div>
 						)
 					)}
