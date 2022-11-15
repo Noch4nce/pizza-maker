@@ -13,6 +13,7 @@ import Sort from '../../components/MainContent/MainHeader/Sort/Sort'
 import MainItems from '../../components/MainContent/MainItems/MainItems'
 import { EnumSortTypes } from '../../redux/reducers/sortReducer/sortTypes'
 import { getSortSelectedTabSelector } from '../../redux/reducers/sortReducer/sortSelectors'
+import StoriesList from '../../components/MainContent/MainItems/StoriesList/StoriesList'
 
 type SortItemTypes = {
 	id: number
@@ -47,6 +48,7 @@ const MainPage: FC = () => {
 					}, [])}
 				/>
 			</div>
+			<StoriesList />
 			<h2 className="content__title">Пицца</h2>
 			<MainItems
 				categoryId={categoryId}
