@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styles from './styles.module.scss'
 
-const items = [
+type item = {
+	name: string
+	image: string
+	price: string
+}
+
+const items: item[] = [
 	{
 		name: 'Пепперони фреш',
 		image: 'https://cdn.dodostatic.net/static/Img/Products/46687fb153db403ca1be721ea41247d0_146x146.png',
@@ -29,7 +35,7 @@ const items = [
 	}
 ]
 
-const RecommendedItems = () => {
+const RecommendedItems: FC = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Часто заказывают</h2>
