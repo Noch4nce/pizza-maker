@@ -10,7 +10,14 @@
 		margin-bottom: 65px;
 
 		&__image {
-			width: 260px;
+			width: 274px;
+			position: relative;
+			top: 0;
+			transition: top 150ms ease-out 0s;
+
+			&:hover {
+				top: 3px;
+			}
 		}
 
 		&__title {

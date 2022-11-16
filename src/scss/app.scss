@@ -4,20 +4,20 @@
 @import './components/all';
 
 body {
-	background-color: $background;
+	background-color: #fff;
 }
 
 .wrapper {
 	width: calc(100vw - 100px);
 	height: 100%;
 	background-color: #fff;
-	margin: 50px auto;
+	margin: 30px auto;
 	border-radius: 10px;
 	max-width: 1400px;
 }
 
 .content {
-	padding: 40px 0;
+	padding: 10px 0;
 
 	&__title {
 		margin: 35px 0;
@@ -249,8 +249,7 @@ body {
 				align-items: center;
 				justify-content: center;
 				width: 210px;
-
-				border-color: darken($color: $gray-line, $amount: 10);
+				background-color: rgb(243, 243, 247);
 
 				span {
 					color: darken($color: $gray-line, $amount: 20);
